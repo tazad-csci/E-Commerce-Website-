@@ -1,0 +1,4 @@
+rm ../backend/public -rf
+mkdir ../backend/public
+npm run build
+cp ./build/* ../backend/public/ -r
