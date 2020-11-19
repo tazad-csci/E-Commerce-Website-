@@ -27,7 +27,7 @@ class Gallery extends React.Component {
         this.setState({isLoading: true})
         
         try {
-            const response = await axios.get('https://jsonplaceholder.typicode.com/users/')
+            const response = await axios.get('')
             const items = response.data
             this.setState({data: items})
         } catch(err) {
@@ -53,8 +53,6 @@ class Gallery extends React.Component {
                 <GalleryCard item={part}/>
                 <GalleryCard item={part}/>
                 <GalleryCard item={part}/>
-                
-        {this.state.data.map(item => <li>{item.name}</li>)}
 
                 {/* {this.data.map(part => <GalleryCard item={part}/>)} */}
                 

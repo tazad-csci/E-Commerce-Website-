@@ -15,19 +15,33 @@
 .gallery-card input[type=text]{
     float: right;
     display: flex;
+    font-size: 14px;
     padding: 10px 25px;
-    margin-bottom: 10px;
     width: 30px;
+    border: 1px solid black;
+    border-radius: .3rem;
+    margin-right: 5px;
 }
 .gallery-card button {
     float: right;
     display: flex;
-    background-color: pink;
-    padding: 5px 15px;
-    border-radius: .2rem;
+    background: #2196F3;
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
     border: none;
+    border-radius: .3rem;
 }
-.item-price {
+.gallery-card button:hover {
+
+    background: #0b7dda;
+}
+.gallery-card label {
     float: left;
     display: flex;
+    font-size: 16px;
+    padding: 8.4px 0;
+}
+.gallery-card form {
+    margin-top: 50px;
 }
