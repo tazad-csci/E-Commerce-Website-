@@ -1,12 +1,13 @@
 import { connect } from "react-redux"
 import PartsList from "../components/PartsList/PartsList";
+import { setPartsList } from "../redux/actions";
 
 const mapStateToProps = (state) => ({
-    items: state.parts.parts.slice(0,5),
+    items: state.parts.parts.slice(0,3),
 })
 
-const mapDispatchToProps = {
-  
-}
+const mapDispatchToProps = dispatch => ({
+
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(PartsList);
