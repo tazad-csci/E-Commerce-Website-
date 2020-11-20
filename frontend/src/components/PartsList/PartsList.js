@@ -3,6 +3,8 @@ import './partList.css';
 
 export default function PartsList(props) {
 
+    console.log(props)
+
     var total_cart = 0;
     props.items.forEach(item => {
         total_cart+= item.price; //TODO: handle QTY

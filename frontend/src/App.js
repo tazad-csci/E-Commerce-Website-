@@ -9,11 +9,11 @@ import PartsList from './container/PartsList';
 
 const store = createStore(reducers);
 
-var unsubscribe = store.subscribe(()=>{
+var unsubscribe = store.subscribe(() => {
   console.log(store.getState())
 })
 
-APICalls.parts.list((data)=>{
+APICalls.parts.list((data) => {
   store.dispatch(setPartsList(data));
 });
 

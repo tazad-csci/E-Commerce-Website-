@@ -9,7 +9,7 @@
 .parts-list-title {
     font-size: 2.3em;
     color: black;
-    font-weight: 400;
+    font-weight: 500;
     padding: 15px;
 }
 
@@ -23,7 +23,7 @@
 
 .parts-list-small{
     font-size: 1.5em;
-    font-weight: 300;
+    font-weight: 400;
     padding-left: 10px;
     padding-right: 10px;
     box-sizing: border-box;
