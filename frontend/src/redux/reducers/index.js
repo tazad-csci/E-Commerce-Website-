@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 const { SET_PARTS_LIST } = require("../actions");
 
 function parts(state = {filter: "", order_by: "", parts: []}, action){
@@ -5,9 +6,9 @@ function parts(state = {filter: "", order_by: "", parts: []}, action){
     var should_sort = false;
     var new_state;
     switch (action.type) {
-        case SET_FILTER:
+        // case SET_FILTER:
             
-            break;
+        //     break;
         case SET_PARTS_LIST:
             should_sort = true;
             new_state = Object.assign({}, state, { parts: action.payload });
@@ -25,12 +26,8 @@ function parts(state = {filter: "", order_by: "", parts: []}, action){
 }
 
 
-{
+const reducers = combineReducers({
+  parts,
+});
 
-    parts: {
-        filter: "",
-        sort_by: "",
-        list: []
-    }
-
-}
+export default reducers;
