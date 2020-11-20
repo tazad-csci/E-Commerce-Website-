@@ -17,7 +17,16 @@ export default function PartsList(props) {
             Parts List
         </span>
         <div className="parts-in-cart">
+            {
+                props.items.map(item=>{
+                    return (
+                        <CartItem 
+                        item={item}
+                        />
 
+                    )
+                })
+            }
         </div>
         <div className="parts-list-totals">
             <div className="parts-list-small parts-list-count-title">QTY:</div>
@@ -33,4 +42,18 @@ export default function PartsList(props) {
         </div>
     </div>
   );
+}
+
+
+function CartItem(props){
+    return (
+        <div style={{width: "100%", backgroundColor: "#AAA", marginTop: "15px"}}>
+            <img 
+            style={{maxHeight: "100%", margin: "5px"}}
+            src={props.item.pictureURL}></img>
+            {props.item.description}
+            /
+            {props.item.number}
+        </div>
+    )
 }
