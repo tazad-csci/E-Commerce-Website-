@@ -29,22 +29,18 @@ class GalleryCard extends React.Component {
             <div className="gallery-card">
       
                 <img 
-                    src={this.props.item.Link} 
-                    alt={this.props.item.Description}
+                    src={this.props.item.pictureURL} 
+                    alt={this.props.item.description}
                 >
                 </img>
 
-                <p>{this.props.item.Description}</p>
-                <p>Quantity Available: {this.props.item.Quantity}</p>
+                <p>{this.props.item.description}</p>
+                <p>Quantity Available: {this.props.item.quantity}</p>
                 
                 <form onSubmit={this.handleSubmit}>
-                    <label>${this.props.item.Price}</label>
+                    <label>${this.props.item.price}</label>
 
-                    <button 
-                        type="submit"
-                    >
-                        Add to Cart
-                    </button>
+                    <button> Add to Cart </button>
 
                     <input 
                         type="text" 
