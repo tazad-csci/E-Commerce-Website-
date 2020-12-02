@@ -1,0 +1,32 @@
+.filter-bar{
+    background-color: #AAA;
+    height: 88px;
+    width: 100%;
+}
+
+.website-header {
+    line-height: 88px;
+    font-size: 2.3em;
+    color: black;
+    font-weight: 500;
+    padding: 15px;
+    text-transform: uppercase;
+}
+
+.input {
+    font-size: 1.6rem;
+    padding: 0.5rem 2rem;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+
+@media (min-width:786px){
+    .form {
+        grid-template-columns: auto 1fr auto;
+        grid-gap: 1rem;
+        align-items: center;
+    }
+    
+}
