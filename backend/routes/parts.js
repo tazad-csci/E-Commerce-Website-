@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET parts listing. */
 router.get('/', function (req, res, next) {
-    query_legacy('select * from parts;', (data)=>{
+    query_legacy('select number from parts;', (data)=>{
         if(data){
             res.json(data);
         }else{
