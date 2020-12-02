@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-const { SET_PARTS_LIST, ADD_TO_CART, REM_FROM_CART, SET_QTY_CART, SET_FILTER } = require("../actions");
+const { SET_PARTS_LIST, ADD_TO_CART, SET_QTY_CART, SET_FILTER } = require("../actions");
 
 function parts(state = {filter: "", order_by: "", parts: []}, action){
     switch (action.type) {
@@ -21,16 +21,13 @@ function cart(state = {items:[], total: 0, qty: 0}, action) {
                 part: action.part,
                 qty: action.qty
             }
-            items = [...state, item];
-            break;
-        case REM_FROM_CART:
+            items = [...state.items, item];
             break;
         case SET_QTY_CART:
-            items = [...state];
-            items = items.map(item => {
+            items = state.items.map(item => {
                 var part = item.part;
                 var qty = item.qty;
-                if(part.id === action.part.id){
+                if(part.number === action.part.number){
                     return {
                         part: action.part,
                         qty: action.qty
@@ -41,15 +38,21 @@ function cart(state = {items:[], total: 0, qty: 0}, action) {
             })
             break;
         default:
-            items = state;
-            break;
+            return state;
     }
 
-    //filter out if qty = 0;
-    //calc the total qty
-    //calc the total cost
+    items = items.filter(item => {
+        return item.qty > 0
+    })
 
-    return items;
+    var total = 0;
+    var qty = 0;
+    items.forEach(item => {
+        qty += parseInt(item.qty);
+        total += item.qty*item.part.price;
+    });
+
+    return Object.assign({}, state, {items, total, qty});
 }
 
 const reducers = combineReducers({
