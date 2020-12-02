@@ -3,13 +3,13 @@ import './partList.css';
 
 export default function PartsList(props) {
 
-    console.log(props)
+    console.log("partslist", props)
 
-    var total_cart = 0;
-    props.items.forEach(item => {
-        total_cart += item.price; //TODO: handle QTY
-    });
-    total_cart = total_cart.toFixed(2);
+    // var total_cart = 0;
+    // props.parts.forEach(item => {
+    //     total_cart += item.price; //TODO: handle QTY
+    // });
+    // total_cart = total_cart.toFixed(2);
 
     return (
         <div className="parts-list">
@@ -22,6 +22,7 @@ export default function PartsList(props) {
                         return (
                             <CartItem
                                 item={item}
+                                setQty={props.set_qty}
                             />
 
                         )
@@ -30,10 +31,10 @@ export default function PartsList(props) {
             </div>
             <div className="parts-list-totals">
                 <div className="parts-list-small parts-list-count-title">QTY:</div>
-                <div className="parts-list-small parts-list-counts">{props.items.length}</div>
+                <div className="parts-list-small parts-list-counts">{props.qty}</div>
                 <br />
                 <div className="parts-list-small parts-list-count-title">TOTAL:</div>
-                <div className="parts-list-small parts-list-counts">${total_cart}</div>
+                <div className="parts-list-small parts-list-counts">${props.total.toFixed(2)}</div>
             </div>
             <div className="parts-list-buttons">
                 <div className="parts-list-button">
@@ -46,25 +47,38 @@ export default function PartsList(props) {
 
 
 function CartItem(props) {
-    console.log("HERE", props)
+    console.log("cartitem", props)
     return (
         <div className="parts-list-cart-item">
             <div className="cart-item-img">
                 <img
-                src={props.item.pictureURL}
+                    src={props.item.part.pictureURL}
                 ></img>
             </div>
             <div className="cart-item-text cart-item-name">
-                {props.item.description}
+                {props.item.part.description}
             </div>
             <div className="cart-item-text cart-item-avail">
-                available: 1000
+                available: {props.item.part.instock}
             </div>
             <div className="cart-item-text cart-item-qty">
-                qty in cart: <span className="inline-button">-</span> <input className="cart-item-input"></input> <span className="inline-button">+</span>
+                qty: 
+                <input type="number" className="cart-item-input"
+                    value={props.item.qty}
+                    onChange={e =>{
+                        if(e.target.value > 0)
+                        props.setQty(props.item.part, e.target.value)}}>
+                </input>
+                <span style={{borderBottom: "1px solid black", cursor: "pointer"}}
+                    onClick={
+                        ()=>props.setQty(props.item.part, 0)
+                    }
+                >
+                    remove item
+                </span>
             </div>
             <div className="cart-item-text cart-item-price">
-                100 @ $50 = 250
+                {props.item.qty} @ ${props.item.part.price} = ${(props.item.qty * props.item.part.price).toFixed(2)}
             </div>
         </div>
     )

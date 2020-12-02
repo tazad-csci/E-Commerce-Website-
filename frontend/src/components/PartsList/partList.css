@@ -93,23 +93,25 @@
     text-transform: uppercase;
 }
 .cart-item-input{
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 5px;
     max-width: 50px;
     text-align: center;
+    border-radius: 5px;
 }
-.inline-button{
-    font-size: 1.1em;
-    font-weight: 900;
-    user-select: none;
-    cursor: pointer;
-    padding: 3px;
-}
-.inline-button::hover{
-    color: white;
-}
+
 .cart-item-price{
     text-align: right;
     /* font-weight: 500; */
 }
 .cart-item-text{
     padding-left: 15px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
 }
