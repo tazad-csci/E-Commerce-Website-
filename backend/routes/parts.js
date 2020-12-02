@@ -1,12 +1,24 @@
 var express = require('express');
-const query_legacy = require('../functions/Pools');
+const pools = require('../functions/Pools');
 var router = express.Router();
 
 /* GET parts listing. */
 router.get('/', function (req, res, next) {
-    query_legacy('select number from parts;', (data)=>{
-        if(data){
-            res.json(data);
+    pools.query_legacy('select * from parts order by number;', (old_data)=>{
+        if(old_data){
+            pools.query_new('select * from inventory order by partNumber;', inventory_data=>{
+                old_data = old_data.map(part => {
+                    var part_inventory = inventory_data.find(function (data) {
+                        return data.partNumber === part.number;
+                    });
+                    if(part_inventory)
+                        part.on_hand = part_inventory.onHand;
+                    else
+                        part.on_hand = 0;
+                    return part;
+                })
+                res.json(old_data);
+            })
         }else{
             res.send(500);
         }
@@ -16,7 +28,7 @@ router.get('/', function (req, res, next) {
 /* GET part number */
 router.get('/:part_number', function (req, res, next) {
     var part_number = escape(req.params.part_number);
-    query_legacy(`select * from parts where number=${part_number};`, (data)=>{
+    pools.query_legacy(`select * from parts where number=${part_number};`, (data)=>{
         if(data){
             // var part_info = data[0];
             // query_new(`select * from parts_inventory where number=${part_number}`, (data)=>{
