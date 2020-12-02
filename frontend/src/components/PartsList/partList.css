@@ -19,6 +19,7 @@
     margin: 10px;
     padding: 10px;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .parts-list-small{
@@ -55,4 +56,60 @@
 .parts-list-button:hover{
     color: black;
     background-color: #777;
+}
+
+
+
+.parts-list-cart-item{
+    height: 120px;
+    width: 100%;
+    padding: 10px;
+    background-color: #AAA;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 120px auto;
+    grid-template-rows: auto auto auto auto;
+}
+
+.cart-item-img img{
+    max-width: 120px;
+}
+.cart-item-img{
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row-end: 5;
+}
+.cart-item-name{
+    font-size: 1.1em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.cart-item-avail{
+    text-transform: capitalize;
+}
+.cart-item-qty{
+    font-size: 1.05em;
+    text-transform: uppercase;
+}
+.cart-item-input{
+    max-width: 50px;
+    text-align: center;
+}
+.inline-button{
+    font-size: 1.1em;
+    font-weight: 900;
+    user-select: none;
+    cursor: pointer;
+    padding: 3px;
+}
+.inline-button::hover{
+    color: white;
+}
+.cart-item-price{
+    text-align: right;
+    /* font-weight: 500; */
+}
+.cart-item-text{
+    padding-left: 15px;
 }
