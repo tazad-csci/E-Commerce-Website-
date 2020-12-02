@@ -1,0 +1,115 @@
+.parts-list {
+    background-color: #AAA;
+    width: 500px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.parts-list-title {
+    font-size: 2.3em;
+    color: black;
+    font-weight: 500;
+    padding: 15px;
+}
+
+.parts-in-cart {
+    height: 100%;
+    background-color: #EEE;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.parts-list-small{
+    font-size: 1.5em;
+    font-weight: 400;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.parts-list-count-title{
+    text-transform: uppercase;
+    width: 50%;
+    text-align: right;
+    display: inline-block;
+}
+
+.parts-list-counts {
+    width: 50%;
+    display: inline-block;
+}
+
+.parts-list-button{
+    user-select: none;
+    color: white;
+    background-color: #555;
+    margin: 20px;
+    padding: 30px;
+    text-align: center;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    transition: all .25s ease;
+}
+.parts-list-button:hover{
+    color: black;
+    background-color: #777;
+}
+
+
+
+.parts-list-cart-item{
+    height: 120px;
+    width: 100%;
+    padding: 10px;
+    background-color: #AAA;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 120px auto;
+    grid-template-rows: auto auto auto auto;
+}
+
+.cart-item-img img{
+    max-width: 120px;
+}
+.cart-item-img{
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row-end: 5;
+}
+.cart-item-name{
+    font-size: 1.1em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.cart-item-avail{
+    text-transform: capitalize;
+}
+.cart-item-qty{
+    font-size: 1.05em;
+    text-transform: uppercase;
+}
+.cart-item-input{
+    max-width: 50px;
+    text-align: center;
+}
+.inline-button{
+    font-size: 1.1em;
+    font-weight: 900;
+    user-select: none;
+    cursor: pointer;
+    padding: 3px;
+}
+.inline-button::hover{
+    color: white;
+}
+.cart-item-price{
+    text-align: right;
+    /* font-weight: 500; */
+}
+.cart-item-text{
+    padding-left: 15px;
+}
