@@ -36,7 +36,7 @@ class Gallery extends React.Component {
         return (
             <div className="gallery-grid">
                 
-                {this.props.data.map(part => <GalleryCard item={part} />)}
+                {this.props.data.map(part => <GalleryCard add_to_cart={this.props.add_to_cart} item={part} />)}
                 
             </div>
         );

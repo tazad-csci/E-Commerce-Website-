@@ -1,4 +1,4 @@
-
+import './app.css';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import APICalls from './functions/APICalls';
@@ -6,6 +6,7 @@ import reducers from './redux/reducers';
 import { addToCart, setPartsList } from './redux/actions';
 import PartsList from './container/PartsList';
 import FilterList from './container/FilterList';
+import Gallery from './container/Gallery';
 
 
 const store = createStore(reducers);
@@ -28,7 +29,8 @@ function App() {
         <div className="left-side">
         <FilterList>
         </FilterList>
-        
+        <Gallery>
+        </Gallery>
       </div>
       <div className="right-side">
         <PartsList>

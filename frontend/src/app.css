@@ -8,7 +8,7 @@
 }
 .left-side{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
 }
 .right-side{

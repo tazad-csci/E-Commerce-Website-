@@ -5,7 +5,8 @@
     border-radius: .4rem;
     padding: 1rem 1rem;
     box-shadow: 0 5px 15px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    overflow: hidden;
+    /* overflow: hidden; */
+    text-transform: capitalize;
 }
 .gallery-card img {
     display: block;
