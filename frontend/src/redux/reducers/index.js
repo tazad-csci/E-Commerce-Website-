@@ -40,7 +40,6 @@ function cart(state = { items: [], total: 0, qty: 0 }, action) {
             } else {
                 items = [...state.items, item];
             }
-
             break;
         case SET_QTY_CART:
             items = state.items.map(item => {
@@ -68,10 +67,10 @@ function cart(state = { items: [], total: 0, qty: 0 }, action) {
     var qty = 0;
     items.forEach(item => {
         qty += parseInt(item.qty);
-        total += item.qty * item.part.price;
+        total += item.qty*item.part.price;
     });
 
-    return Object.assign({}, state, { items, total, qty });
+    return Object.assign({}, state, {items, total, qty});
 }
 
 const reducers = combineReducers({
