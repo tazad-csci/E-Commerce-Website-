@@ -5,6 +5,7 @@ import APICalls from './functions/APICalls';
 import reducers from './redux/reducers';
 import { setPartsList } from './redux/actions';
 import PartsList from './container/PartsList';
+import FilterList from './container/FilterList';
 
 
 const store = createStore(reducers);
@@ -20,6 +21,7 @@ APICalls.parts.list((data) => {
 function App() {
   return (
     <Provider store={store}>
+      <FilterList></FilterList>
       <PartsList>
 
       </PartsList>

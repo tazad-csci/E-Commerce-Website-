@@ -1,4 +1,5 @@
 export const  SET_PARTS_LIST = 'SET_PARTS_LIST';
+export const  SET_FILTER = 'SET_FILTER';
 
 export const  ADD_TO_CART = 'ADD_TO_CART';
 export const  REM_FROM_CART = 'REM_FROM_CART';
@@ -9,6 +10,12 @@ export var setPartsList = (parts_list) => (
     {
         type: SET_PARTS_LIST,
         payload: parts_list,
+    }
+)
+export var setFilter = (filter) => (
+    {
+        type: SET_FILTER,
+        payload: filter,
     }
 )
 

@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
-const { SET_PARTS_LIST, ADD_TO_CART, REM_FROM_CART, SET_QTY_CART } = require("../actions");
+const { SET_PARTS_LIST, ADD_TO_CART, REM_FROM_CART, SET_QTY_CART, SET_FILTER } = require("../actions");
 
 function parts(state = {filter: "", order_by: "", parts: []}, action){
 
     var should_sort = false;
     var new_state;
     switch (action.type) {
-        // case SET_FILTER:
-            
-        //     break;
+        case SET_FILTER:
+            new_state = Object.assign({}, state, {filter: action.payload})
+            break;
         case SET_PARTS_LIST:
             should_sort = true;
             new_state = Object.assign({}, state, { parts: action.payload });
