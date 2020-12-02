@@ -2,27 +2,14 @@ import { combineReducers } from 'redux';
 const { SET_PARTS_LIST, ADD_TO_CART, REM_FROM_CART, SET_QTY_CART, SET_FILTER } = require("../actions");
 
 function parts(state = {filter: "", order_by: "", parts: []}, action){
-
-    var should_sort = false;
-    var new_state;
     switch (action.type) {
         case SET_FILTER:
-            new_state = Object.assign({}, state, {filter: action.payload})
-            break;
+            return Object.assign({}, state, {filter: action.payload})
         case SET_PARTS_LIST:
-            should_sort = true;
-            new_state = Object.assign({}, state, { parts: action.payload });
-            break;
+            return Object.assign({}, state, { parts: action.payload });
         default:
-            new_state = state;
-            break;
+            return state;
     }
-
-    if(should_sort){
-
-    }
-
-    return new_state;
 }
 
 

@@ -21,10 +21,16 @@ APICalls.parts.list((data) => {
 function App() {
   return (
     <Provider store={store}>
-      <FilterList></FilterList>
-      <PartsList>
+      <div className="left-side">
+        <FilterList>
+        </FilterList>
+        
+      </div>
+      <div className="right-side">
+        <PartsList>
+        </PartsList>
+      </div>
 
-      </PartsList>
     </Provider>
   );
 }
