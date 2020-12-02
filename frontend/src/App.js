@@ -1,4 +1,4 @@
-import './app.css';
+
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import APICalls from './functions/APICalls';
