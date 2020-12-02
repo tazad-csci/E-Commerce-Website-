@@ -10,7 +10,7 @@ function parts(state = {filter: "", order_by: "", parts: []}, action){
         default:
             return state;
     }
-}
+} 
 
 
 function cart(state = {items:[], total: 0, qty: 0}, action) {

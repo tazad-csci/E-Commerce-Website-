@@ -21,7 +21,8 @@ APICalls.parts.list((data) => {
 function App() {
   return (
     <Provider store={store}>
-      <div className="left-side">
+      <div className="container-main">
+        <div className="left-side">
         <FilterList>
         </FilterList>
         
@@ -30,6 +31,8 @@ function App() {
         <PartsList>
         </PartsList>
       </div>
+      </div>
+      
 
     </Provider>
   );

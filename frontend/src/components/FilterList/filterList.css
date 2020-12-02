@@ -1,45 +1,26 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-color: rgb(244,244,244);
-    color: #333;
+.filter-bar{
+    background-color: #AAA;
+    height: 88px;
+    width: 100%;
 }
 
-.container {
-    margin: 0 auto;
-    max-width:1000px;
-    padding: 40px;
-}
-
-.label {
-    font-size: 1.2rem;
-    margin-bottom: 0.2rem;
+.website-header {
+    line-height: 88px;
+    font-size: 2.3em;
+    color: black;
+    font-weight: 500;
+    padding: 15px;
     text-transform: uppercase;
 }
 
 .input {
     font-size: 1.6rem;
     padding: 0.5rem 2rem;
-    line-height: 2.8rem;
     border-radius: 20px;
     border: 1px solid #ddd;
-    margin-bottom: 1rem;
+    box-sizing: border-box;
 }
 
-.button {
-    background-color: rgba(0,0,0,0.75);
-    color: white;
-    padding: 1rem 2rem;
-    border: 1px solid rgba(0,0,0,0.75);
-    border-radius: 20px;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: background-color 250ms;
-}
-
-.button:hover {
-    background-color: rgba(0,0,0,0.85);
-}
 
 @media (min-width:786px){
     .form {
