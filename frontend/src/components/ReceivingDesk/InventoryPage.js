@@ -16,8 +16,8 @@ class InventoryPage extends React.Component {
         }
     }
 
-    componentDidMount(){
-        APICalls.parts.list(data=>{
+    componentDidMount() {
+        APICalls.parts.list(data => {
             this.setState({
                 data
             })
@@ -27,7 +27,7 @@ class InventoryPage extends React.Component {
     render() {
         return (
             <div className="inventory-list">
-                <FilterList name="Recieving"/>
+                <FilterList name="Recieving" />
                 <span className="searchBar">
                     <input type="text"
                         placeholder="Find Part..."
@@ -49,7 +49,7 @@ class InventoryPage extends React.Component {
                     </tr>
                     {this.state.data.map(part => {
                         return (
-                            <tr>
+                            <tr key={part.number}>
                                 <td>
                                     {part.description}
                                 </td>
@@ -58,12 +58,19 @@ class InventoryPage extends React.Component {
                                 </td>
                                 <td>
                                     <input type="number" id="quantity" value={part.on_hand} name="quantity" min="0" onChange={
-                                        (e)=>{
+                                        (e) => {
                                             console.log(part)
                                             var part_id = part.number;
                                             var new_qty = e.target.value;
                                             console.log("Trying to change:", part_id, new_qty);
-                                            //TODO: Call API
+                                            //this is terrible lol
+                                            APICalls.parts.setQTY(part_id, new_qty, () => {
+                                                APICalls.parts.list(data => {
+                                                    this.setState({
+                                                        data
+                                                    })
+                                                })
+                                            })
                                         }
                                     }></input>
                                 </td>
