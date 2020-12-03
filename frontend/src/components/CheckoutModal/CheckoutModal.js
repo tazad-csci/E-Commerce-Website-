@@ -30,7 +30,7 @@ class CheckoutModal extends React.Component {
         this.props.onClose && this.props.onClose(e);
     }
 
-    onSubmit() {
+    async onSubmit() {
         console.log("Submitted")
         var post_data = {
             cardInfo: {
@@ -39,10 +39,16 @@ class CheckoutModal extends React.Component {
                 exp: this.state.exp,
             }
         }
-        axios.post("http://localhost:2999/order/checkout", post_data)
-        .then(function(response){
-            
-        })
+        try{
+            var response = axios.post("http://localhost:2999/order/checkout", post_data)
+            if (response) {
+                this.setOrderNum(response)
+            }
+        }
+        catch(e){
+            console.log(e)
+        }
+        response = axios.post("http://localhost:2999/order/checkout", post_data)
     }
 
     setOrderNum(num){
