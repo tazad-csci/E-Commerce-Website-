@@ -24,7 +24,9 @@ router.post('/checkout', function (req, res, next) {
         console.log(data)
         axios.post('http://blitz.cs.niu.edu/CreditCard/', data.cardInfo)
             .then(
-                (res_data)=>{//TODO: Check for errors
+                (res_data)=>{
+                    console.log(res_data)
+                    if(res_data.data  && res_data.data.errors === undefined){
                     data.items.forEach(item => {
                         decreaseQuantity(item.part.number, item.qty);
                     });
@@ -32,7 +34,9 @@ router.post('/checkout', function (req, res, next) {
                     res.json({
                         auth: res_data.data.authorization,
                         id: data.cardInfo.trans,
-                    })
+                    })}else{
+                        res.send(500);
+                    }
                 }
             ).catch((err)=>{
                 console.log(err)
