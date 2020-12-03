@@ -1,0 +1,16 @@
+.checkout-container {
+    display: inline-block;
+}
+.checkout-button {
+    border-radius: 10px;
+    padding: 8px 40px;
+    margin: 10px; 
+    background: #2196F3;
+    border: 1px solid #2196F3;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition-duration: 0.25s;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+}

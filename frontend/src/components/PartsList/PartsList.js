@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './partList.css';
+import CheckoutButton from "../CheckoutModal/CheckoutButton";
 
 export default function PartsList(props) {
 
@@ -39,6 +40,7 @@ export default function PartsList(props) {
             <div className="parts-list-buttons">
                 <div className="parts-list-button">
                     Checkout
+                    <CheckoutButton />
             </div>
             </div>
         </div>
