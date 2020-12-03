@@ -27,3 +27,6 @@
 .close-button {
     float: right;
 }
+.modal-content button {
+    margin: 10px 0;
+}

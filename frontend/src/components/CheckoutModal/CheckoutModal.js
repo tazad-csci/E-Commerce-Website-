@@ -119,7 +119,7 @@ class CheckoutModal extends React.Component {
                             name="exp"
                             onChange={this.handleChange}
                         />
-    
+                        
                         <button 
                         onClick={e => {this.onSubmit()}}
                         className="checkout-button"
