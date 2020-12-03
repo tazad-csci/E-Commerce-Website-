@@ -1,0 +1,24 @@
+.inventory-list{
+    background-color: #AAA;
+    height: 88px;
+    width: 100%;
+   text-align:center;
+}
+
+.center{
+    margin:"500px";
+    padding-bottom:"1050px";
+    margin-bottom:"1000px";
+    
+}
+
+.table{
+    margin: 20px auto;
+}
+
+.field{
+    border: 2px solid rgb(255,232,57);
+    width: 1000px;
+    height: 300px;
+    margin:auto;
+}
