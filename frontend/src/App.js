@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import APICalls from './functions/APICalls';
 import reducers from './redux/reducers';
-import { addToCart, setPartsList } from './redux/actions';
+import { addToCart, setPartsList, setShipping } from './redux/actions';
 import PartsList from './container/PartsList';
 import FilterList from './container/FilterList';
 import Gallery from './container/Gallery';
@@ -24,6 +24,11 @@ APICalls.parts.list((data) => {
   store.dispatch(addToCart(data[2], 3))
   store.dispatch(addToCart(data[3], 5))
 });
+
+APICalls.admin.getRules((data)=>{
+  console.log(data);
+  store.dispatch(setShipping(data));
+})
 
 function App() {
   return (
