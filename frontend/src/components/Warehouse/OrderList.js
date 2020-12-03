@@ -34,13 +34,14 @@ class OrderList extends React.Component {
         return(
             <div className="order-list-wrapper">
               
-                <h1>Out Going Orders</h1>
+                <h1 className="title">Out Going Orders</h1>
                 <input
                             type="text"
                             value={this.state.search}
                             placeholder="search for an order"
                             name="search"
                             onChange={this.handleChange}
+                            className="filter"
                         />
                 <table>
                     <tr>

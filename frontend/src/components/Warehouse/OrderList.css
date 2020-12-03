@@ -7,6 +7,12 @@
     margin: 20px auto;
     border: 1px solid black;
 }
-.order-list-wrapper {
-    display: block;
+.order-list-wrapper .title, .filter{
+    float: left;
+}
+.filter {
+    margin: 30px;
+    padding: 10px 20px;
+    border-radius: .3rem;
+    border: 1px solid black;
 }
