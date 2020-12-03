@@ -43,6 +43,9 @@ class InventoryPage extends React.Component {
                         <th>
                             ID-Part
                         </th>
+                        <th>
+                            QTY
+                        </th>
                     </tr>
                     {this.state.data.map(part => {
                         return (
@@ -54,10 +57,10 @@ class InventoryPage extends React.Component {
                                     {part.number}
                                 </td>
                                 <td>
-                                    <label for="quantity">Qty </label>
-                                    <input type="number" id="quantity" name="quantity" min="0" onChange={
+                                    <input type="number" id="quantity" value={part.on_hand} name="quantity" min="0" onChange={
                                         (e)=>{
-                                            var part_id = part.onHand;
+                                            console.log(part)
+                                            var part_id = part.number;
                                             var new_qty = e.target.value;
                                             console.log("Trying to change:", part_id, new_qty);
                                             //TODO: Call API
@@ -68,7 +71,6 @@ class InventoryPage extends React.Component {
                         )
                     })}
                 </table>
-                <input type="submit" value="Update Parts"></input>
 
             </div>
         )
