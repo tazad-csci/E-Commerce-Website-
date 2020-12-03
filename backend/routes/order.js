@@ -12,9 +12,10 @@ function decreaseQuantity(num, qty){
 function finalizeOrder(card_info, parts, auth){
     console.log()
     pools.query_new(`insert into shippingInfo(full_address, full_name, email) values ("${card_info.address}", "${card_info.name}","${card_info.email}")`, (res)=>{
-        shipping_info = 
-        pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","${card_info.amount}",${res.insertId},"${auth}")`, (res)=>{
+        shipping_id = res.insertId; 
+        pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","${card_info.amount}",${shipping_id},"${auth}")`, (res)=>{
             order_id = res.insertId;
+            
         })
     })
     console.log("done")
