@@ -41,13 +41,14 @@ class CheckoutModal extends React.Component {
                 cc: this.state.cc,
                 name: this.state.name,
                 exp: this.state.exp,
+                address: this.state.mailingAddr,
+                email: this.state.email,
             },
             items: this.props.items,
         }
         try{
             var response = await axios.post("https://sugarytomatoes.com/order/checkout", post_data)
             if (response) {
-                console.log(response.data)
                 this.setOrderNum(response.data.id)
                 setTimeout(()=>{
                     this.props.refreshData();
