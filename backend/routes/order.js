@@ -13,7 +13,7 @@ function finalizeOrder(card_info, parts, auth) {
     console.log()
     pools.query_new(`insert into shippingInfo(full_address, full_name, email) values ("${card_info.address}", "${card_info.name}","${card_info.email}")`, (res) => {
         shipping_id = res.insertId;
-        pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","${card_info.amount}",${shipping_id},"${auth}")`, (res) => {
+        pools.query_new(`insert into orders (orderNumber, statusText, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","auth","${card_info.amount}",${shipping_id},"${auth}")`, (res) => {
             order_id = res.insertId;
             parts.forEach(part => {
                 pools.query_new(`insert into partsForOrder(orderID, partNumber, partName, partWeight, partCost, qty) values (${order_id},${part.part.number},"${part.part.description}",${part.part.weight},${part.part.price},${part.qty})`, ()=>{
