@@ -1,5 +1,6 @@
 .checkout-container {
     display: inline-block;
+    width: 100%;
 }
 .checkout-button {
     border-radius: 10px;
@@ -13,4 +14,5 @@
     outline: none;
     font-size: 16px;
     font-weight: 600;
+    width: 100%;
 }
