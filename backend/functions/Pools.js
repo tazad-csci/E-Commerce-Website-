@@ -46,9 +46,12 @@ const query_new = (query, cb) => {
             conn.release();
             if (!err)
                 cb(results);
+            else
+                console.log(err)
         });
 
         conn.on('error', (err) => {
+            console.log(err)
             cb(false)
             return;
         })
