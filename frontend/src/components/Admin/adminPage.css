@@ -7,8 +7,26 @@
     grid-column: 2;
 }
 
-.admin-order-table{
+.admin-content input{
+    width: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.admin-content button{
+    margin-left: 20px;
+}
+
+.admin-container table{
     width: 100%;
     border: 1px solid black;
     text-align: center;
+}
+
+.clickable-td{
+    user-select: none;
+    cursor: pointer;
+}
+.clickable-td:hover{
+    background-color: #AAA;
 }
