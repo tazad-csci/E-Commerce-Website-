@@ -44,4 +44,11 @@ router.get('/:part_number', function (req, res, next) {
     })
 });
 
+router.post('/setQTY', (req, res, next)=>{
+    var data = req.body;
+    pools.query_new(`update inventory set onHand = ${data.onHand} where partNumber = ${data.partNumber};`, data=>{
+        res.json(data);
+    })
+})
+
 module.exports = router;

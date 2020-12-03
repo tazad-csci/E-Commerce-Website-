@@ -15,6 +15,7 @@ export default function AdminPage() {
         APICalls.admin.getRules(rules => {
             setAdminRules(rules);
         })
+        APICalls.parts.setQTY(1, 100, ()=>{});
     }, []);
 
     return (

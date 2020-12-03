@@ -26,6 +26,7 @@
 .clickable-td{
     user-select: none;
     cursor: pointer;
+    color: blue;
 }
 .clickable-td:hover{
     background-color: #AAA;
