@@ -19,13 +19,15 @@ router.post('/checkout', function (req, res, next) {
 
         data.items.forEach(item => {
             data.cardInfo.amount += item.qty * item.part.price
-            decreaseQuantity(item.part.number, item.qty);
         });
 
         console.log(data)
         axios.post('http://blitz.cs.niu.edu/CreditCard/', data.cardInfo)
             .then(
-                (res_data)=>{
+                (res_data)=>{//TODO: Check for errors
+                    data.items.forEach(item => {
+                        decreaseQuantity(item.part.number, item.qty);
+                    });
                     console.log(res_data.data.authorization)
                     res.json({
                         auth: res_data.data.authorization,
