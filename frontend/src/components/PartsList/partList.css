@@ -52,6 +52,8 @@
     font-size: 1.5em;
     text-transform: uppercase;
     transition: all .25s ease;
+    width: 90%;
+    box-sizing: border-box;
 }
 .parts-list-button:hover{
     color: black;
