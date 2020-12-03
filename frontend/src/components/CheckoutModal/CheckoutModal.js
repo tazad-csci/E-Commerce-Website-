@@ -70,6 +70,9 @@ class CheckoutModal extends React.Component {
 
                     (<><h2>Checkout</h2>
                     <div >
+                        ur total is {this.props.total.toFixed(2)}
+                        ur qty is {this.props.total.toFixed(2)}
+                        ur weight is {this.props.weight.toFixed(2)}
 
                         <input
                             type="text"
