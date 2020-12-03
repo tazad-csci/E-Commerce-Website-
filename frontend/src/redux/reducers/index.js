@@ -13,10 +13,12 @@ function parts(state = { filter: "", order_by: "", parts: [] }, action) {
 }
 
 
-function cart(state = { items: [], total: 0, qty: 0 }, action) {
+function cart(state = { items: [], total: 0, qty: 0, weight: 0 }, action) {
     var items = [];
     switch (action.type) {
         case ADD_TO_CART:
+            if(action.qty > action.part.on_hand)
+                action.qty = action.part.on_hand;
             var item = {
                 part: action.part,
                 qty: action.qty
@@ -31,7 +33,9 @@ function cart(state = { items: [], total: 0, qty: 0 }, action) {
             if (exists !== undefined) {
                 items = state.items.map(arri => {
                     if (arri.part.number === item.part.number) {
-                        item.qty += exists.qty
+                        item.qty += parseInt(exists.qty)
+                        if(item.qty > item.part.on_hand)
+                            item.qty = item.part.on_hand;
                         return item;
                     } else {
                         return arri;
@@ -65,12 +69,14 @@ function cart(state = { items: [], total: 0, qty: 0 }, action) {
 
     var total = 0;
     var qty = 0;
+    var weight = 0;
     items.forEach(item => {
         qty += parseInt(item.qty);
         total += item.qty*item.part.price;
+        weight += item.qty*item.part.weight;
     });
 
-    return Object.assign({}, state, {items, total, qty});
+    return Object.assign({}, state, {items, total, qty, weight});
 }
 
 const reducers = combineReducers({
