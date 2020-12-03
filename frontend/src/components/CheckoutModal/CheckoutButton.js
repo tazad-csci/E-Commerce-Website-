@@ -1,5 +1,5 @@
 import React from 'react'
-import CheckoutModal from './CheckoutModal'
+import CheckoutModal from '../../container/CheckoutModal'
 import './CheckoutButton.css'
 
 class CheckoutButton extends React.Component {
