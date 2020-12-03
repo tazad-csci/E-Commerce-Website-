@@ -18,7 +18,7 @@ class CheckoutButton extends React.Component {
 
                 <button 
                     onClick={e => {this.showModal(e)}} 
-                    className="checkout-button"
+                    className="parts-list-button"
                 >
                     Checkout
                 </button>

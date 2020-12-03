@@ -38,10 +38,7 @@ export default function PartsList(props) {
                 <div className="parts-list-small parts-list-counts">${props.total.toFixed(2)}</div>
             </div>
             <div className="parts-list-buttons">
-                <div className="parts-list-button">
-                    Checkout
                     <CheckoutButton />
-            </div>
             </div>
         </div>
     );
