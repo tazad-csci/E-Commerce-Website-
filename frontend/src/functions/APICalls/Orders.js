@@ -6,6 +6,7 @@ class Orders{
     getOrders(cb, incShipped = false){
         this.api.get('/order/orders')
         .then(data => {
+            console.log("object", data.data)
             cb(data.data)
         })
         .catch(err=>{
