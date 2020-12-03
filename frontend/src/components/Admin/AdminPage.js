@@ -8,6 +8,12 @@ export default function AdminPage() {
     const [adminRules, setAdminRules] = useState([1, 2, 3]);
     const [modal, setModal] = useState({});
     const [rule, setRule] = useState({ cost: 0, value: 0 })
+
+    const [orderFilter, setOrderFilter] = useState("")
+    const [priceSort, setpriceSort] = useState({ hi: 0, low: 0 });
+    const [dateSort, setDateSort] = useState({ hi: null, low: null });
+    const [statusSort, setStatusSort] = useState(0);
+
     useEffect(() => {
         APICalls.orders.getOrders(orders => {
             setOrders(orders);
@@ -79,7 +85,6 @@ export default function AdminPage() {
                                                     setAdminRules(data);
                                                 })
                                             })
-
                                         }}>
                                             X
                                         </td>
@@ -92,6 +97,24 @@ export default function AdminPage() {
                     <h2>
                         Orders
                     </h2>
+                    Filter for text: <input value={orderFilter} onChange={e => setOrderFilter(e.target.value)}></input>
+                    <br />
+                    Between $<input type="number" value={priceSort.low} onChange={e => setpriceSort(Object.assign({}, priceSort, { low: e.target.value }))}></input> and $<input type="number" value={priceSort.hi} onChange={e => setpriceSort(Object.assign({}, priceSort, { hi: e.target.value }))}></input>
+                    <br />
+                    Between <input className="date-in" type="date" value={dateSort.low} onChange={e => setDateSort(Object.assign({}, dateSort, { low: e.target.value }))}></input> and <input className="date-in" type="date" value={dateSort.hi} onChange={e => setDateSort(Object.assign({}, dateSort, { hi: e.target.value }))}></input>
+                    <br />
+                    Show
+                    <form>
+                        <label class="radio-inline">
+                            <input type="radio" checked={statusSort === 0} onClick={() => setStatusSort(0)} />All
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" checked={statusSort === 1} onClick={() => setStatusSort(1)} />Auth
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" checked={statusSort === 2} onClick={() => setStatusSort(2)} />Shipped
+                        </label>
+                    </form>
                     <table className="admin-order-table">
                         <th>
                             Order Number
@@ -109,7 +132,35 @@ export default function AdminPage() {
                             Date
                         </th>
 
-                        {orders.order_list.map(order => {
+                        {orders.order_list.filter(order => {
+                            var will_display = true;
+                            if (orderFilter) {
+                                if (!JSON.stringify(order).toLowerCase().includes(orderFilter.toLowerCase()))
+                                    will_display = false;
+                            }
+                            if (priceSort.hi > 0 && priceSort.low > 0)
+                                if (order.amount > priceSort.hi || order.amount < priceSort.low)
+                                    will_display = false;
+
+                            if (dateSort.hi && dateSort.low) {
+                                var order_date = new Date(order.orderDate);
+                                var hi = new Date(dateSort.hi);
+                                var low = new Date(dateSort.low);
+                                if (order_date > hi || order_date < low)
+                                    will_display = false
+                            }
+
+                            if(statusSort > 0){
+                                if(statusSort == 1 && order.statusText.toLowerCase().includes("ship")){
+                                    will_display = false;
+                                }
+                                if(statusSort == 2 && order.statusText.toLowerCase().includes("auth")){
+                                    will_display = false;
+                                }
+                            }
+
+                            return will_display;
+                        }).map(order => {
                             return (
                                 <tr>
                                     <td>

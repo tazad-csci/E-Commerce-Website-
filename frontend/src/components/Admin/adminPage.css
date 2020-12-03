@@ -31,3 +31,11 @@
 .clickable-td:hover{
     background-color: #AAA;
 }
+
+.date-in{
+    width: 150px !important;
+}
+
+.admin-order-table{
+    margin-top: 20px;
+}
