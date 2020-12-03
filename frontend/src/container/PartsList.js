@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
     total: state.cart.total,
     qty: state.cart.qty,
     weight: state.cart.weight,
+    shipping: state.cart.shipping_cost,
 })
 
 const mapDispatchToProps = dispatch => ({

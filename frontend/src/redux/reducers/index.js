@@ -32,7 +32,7 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0, shipping_cost: {
             if (exists !== undefined) {
                 items = state.items.map(arri => {
                     if (arri.part.number === item.part.number) {
-                        item.qty += parseInt(exists.qty)
+                        item.qty = parseInt(exists.qty) + parseInt(item.qty);
                         if(item.qty > item.part.on_hand)
                             item.qty = item.part.on_hand;
                         return item;
@@ -87,7 +87,7 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0, shipping_cost: {
         }
     });
 
-    total += shipping_cost.total;    
+    // total += shipping_cost.total;    
 
     return Object.assign({}, state, {items, total, qty, weight, shipping_cost});
 }
