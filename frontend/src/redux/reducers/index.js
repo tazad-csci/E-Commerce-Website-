@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-const { SET_PARTS_LIST, ADD_TO_CART, SET_QTY_CART, SET_FILTER, CLEAR_CART } = require("../actions");
+const { SET_PARTS_LIST, ADD_TO_CART, SET_QTY_CART, SET_FILTER, CLEAR_CART, SET_SHIPPING } = require("../actions");
 
 function parts(state = { filter: "", order_by: "", parts: [] }, action) {
     switch (action.type) {
@@ -11,9 +11,8 @@ function parts(state = { filter: "", order_by: "", parts: [] }, action) {
             return state;
     }
 }
-
-
-function cart(state = { items: [], total: 0, qty: 0, weight: 0 }, action) {
+const init = { items: [], total: 0, qty: 0, weight: 0, shipping_cost: {total: 0, rule: {cost:0, rule_value: 0}}, shipping: []}
+function cart(state = init, action) {
     var items = [];
     switch (action.type) {
         case ADD_TO_CART:
@@ -33,7 +32,7 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0 }, action) {
             if (exists !== undefined) {
                 items = state.items.map(arri => {
                     if (arri.part.number === item.part.number) {
-                        item.qty += parseInt(exists.qty)
+                        item.qty = parseInt(exists.qty) + parseInt(item.qty);
                         if(item.qty > item.part.on_hand)
                             item.qty = item.part.on_hand;
                         return item;
@@ -60,7 +59,9 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0 }, action) {
             })
             break;
         case CLEAR_CART:
-            return { items: [], total: 0, qty: 0, weight: 0 };
+            return init;
+        case SET_SHIPPING:
+            return Object.assign({}, state, {shipping: action.payload});
         default:
             return state;
     }
@@ -78,7 +79,17 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0 }, action) {
         weight += item.qty*item.part.weight;
     });
 
-    return Object.assign({}, state, {items, total, qty, weight});
+    var shipping_cost = {total: 0, rule: {cost:0, rule_value: 0}};
+
+    state.shipping.forEach(shipping_rule => {
+        if(weight > shipping_rule.rule_value){
+            shipping_cost = {total: shipping_rule.cost * weight, rule: shipping_rule};
+        }
+    });
+
+    // total += shipping_cost.total;    
+    console.log("hehre", shipping_cost)
+    return Object.assign({}, state, {items, total, qty, weight, shipping_cost});
 }
 
 const reducers = combineReducers({

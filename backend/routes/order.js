@@ -13,7 +13,7 @@ function finalizeOrder(card_info, parts, auth) {
     console.log()
     pools.query_new(`insert into shippingInfo(full_address, full_name, email) values ("${card_info.address}", "${card_info.name}","${card_info.email}")`, (res) => {
         shipping_id = res.insertId;
-        pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","${card_info.amount}",${shipping_id},"${auth}")`, (res) => {
+        pools.query_new(`insert into orders (orderNumber, statusText, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","auth","${card_info.amount}",${shipping_id},"${auth}")`, (res) => {
             order_id = res.insertId;
             parts.forEach(part => {
                 pools.query_new(`insert into partsForOrder(orderID, partNumber, partName, partWeight, partCost, qty) values (${order_id},${part.part.number},"${part.part.description}",${part.part.weight},${part.part.price},${part.qty})`, ()=>{
@@ -25,8 +25,11 @@ function finalizeOrder(card_info, parts, auth) {
     console.log("done")
 }
 
-router.get('/orders', (req, res, next) => {
-    pools.query_new('select * from orders inner join shippingInfo on orders.shippingID = shippingInfo.shippingID;', (data) => {
+
+router.get('/orders/:incShipped', (req, res, next) => {
+    var incShipped = req.params.incShipped;
+    console.log("shipping ", incShipped)
+    pools.query_new(`select * from orders inner join shippingInfo on orders.shippingID = shippingInfo.shippingID ${incShipped == 1 ? '' : 'where orders.statusText = "auth"'};`, (data) => {
         order_list = data;
         pools.query_new('select * from partsForOrder;', (data) => {
             parts_included = data;
@@ -37,24 +40,29 @@ router.get('/orders', (req, res, next) => {
     })
 })
 
-router.get('/shippingInfo', (req, res, next) => {
-
+router.post('/setShipped', (req, res, next) => {
+    pools.query_new(`update orders set statusText = "shipped" where orderID = ${req.body.order_id}`, data=>{
+        res.json(data);
+        //TODO: send shipping message
+    })
 })
 
 router.post('/checkout', function (req, res, next) {
     data = req.body
-    if (data) {
+    if (data) { 
         // console.log(data)
         data.cardInfo.vendor = "Group6A-Test"
         time_ms = (new Date().getTime()) + ""
-        data.cardInfo.trans = "9005-" + time_ms.slice(time_ms.length - 10, time_ms.length) + "-" + Math.random() * 10000;
-        data.cardInfo.amount = 0;
+        data.cardInfo.trans = "9005-" + time_ms.slice(time_ms.length - 10, time_ms.length) + "-" + Math.floor(Math.random() * 10000);
+        // data.cardInfo.amount = 0;
 
 
-        data.items.forEach(item => {
-            data.cardInfo.amount += item.qty * item.part.price
-        });
+        // data.items.forEach(item => {
+        //     data.cardInfo.amount += item.qty * item.part.price
+        // });
 
+
+        if(data.cardInfo.amount > 0)
         axios.post('http://blitz.cs.niu.edu/CreditCard/', data.cardInfo)
             .then(
                 (res_data) => {
@@ -64,7 +72,7 @@ router.post('/checkout', function (req, res, next) {
                         data.items.forEach(item => {
                             decreaseQuantity(item.part.number, item.qty);
                         });
-                        console.log(res_data.data)
+                        // console.log(res_data.data)
                         res.json({
                             auth: res_data.data.authorization,
                             id: data.cardInfo.trans,
@@ -79,6 +87,8 @@ router.post('/checkout', function (req, res, next) {
                 res.send(500);
             }
             )
+            else
+            res.send(500);
     }
 })
 

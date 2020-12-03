@@ -6,12 +6,6 @@ export default function PartsList(props) {
 
     console.log("partslist", props)
 
-    // var total_cart = 0;
-    // props.parts.forEach(item => {
-    //     total_cart += item.price; //TODO: handle QTY
-    // });
-    // total_cart = total_cart.toFixed(2);
-
     return (
         <div className="parts-list">
             <span className="parts-list-title">
@@ -37,8 +31,16 @@ export default function PartsList(props) {
                 <div className="parts-list-small parts-list-count-title">QTY:</div>
                 <div className="parts-list-small parts-list-counts">{props.qty}</div>
                 <br />
+                <div className="parts-list-small parts-list-count-title">SHIPPING:</div>
+                <div className="parts-list-small parts-list-counts">${props.shipping.total.toFixed(2)} (${props.shipping.rule.cost}/lbs)</div>
+                <br />
                 <div className="parts-list-small parts-list-count-title">TOTAL:</div>
                 <div className="parts-list-small parts-list-counts">${props.total.toFixed(2)}</div>
+                <br />
+                <div className="parts-list-small parts-list-count-title">GRAND TOTAL:</div>
+                <div className="parts-list-small parts-list-counts">${
+                parseFloat( props.total.toFixed(2))+
+                parseFloat( props.shipping.total.toFixed(2))}</div>
             </div>
             <div className="parts-list-buttons">
                     <CheckoutButton />
