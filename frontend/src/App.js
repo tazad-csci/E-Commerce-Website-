@@ -37,8 +37,6 @@ function App() {
         </PartsList>
       </div>
       </div>
-      
-
     </Provider>
   );
 }
