@@ -30,6 +30,15 @@ class OrderList extends React.Component {
         })
     }
 
+    updateOrders() {
+        APICalls.orders.getOrders(data => {
+            console.log(data)
+            this.setState({
+                data: data.order_list,
+            })
+        })
+    }
+
     example = { "orderID": 1,
      "shipped": null,
      "orderNumber": "9005-6972062066-8609.243089855496",
@@ -56,7 +65,7 @@ class OrderList extends React.Component {
                 <table>
                     <tr>
                         <th>Order Number</th>
-                        <th>Custome Name</th>
+                        <th>Customer Name</th>
                         <th>Shipping Label and Invoice</th>
                         <th>Update Order Status</th>
                     </tr>
@@ -73,7 +82,10 @@ class OrderList extends React.Component {
                                 <td>
                                     Print Label
                                 </td>
-                                <td>
+                                <td 
+                                    className="clickable-td"
+                                    onClick={()=>APICalls.orders.setShipped(order.orderID, ()=>{this.updateOrders()})}
+                                >
                                     Mark Complete
                                 </td>
                             </tr>
