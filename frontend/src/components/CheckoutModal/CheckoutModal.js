@@ -28,6 +28,10 @@ class CheckoutModal extends React.Component {
 
     onClose = e => {
         this.props.onClose && this.props.onClose(e);
+        this.setState({
+            orderNum: null,
+        })
+        console.log(this.state.orderNum)
     }
 
     async onSubmit() {
@@ -41,9 +45,10 @@ class CheckoutModal extends React.Component {
             items: this.props.items,
         }
         try{
-            var response =   response = axios.post("https://sugarytomatoes.com/order/checkout", post_data)
+            var response = await axios.post("https://sugarytomatoes.com/order/checkout", post_data)
             if (response) {
-                this.setOrderNum(response)
+                console.log(response.data)
+                this.setOrderNum(response.data.id)
                 setTimeout(()=>{
                     this.props.refreshData();
                 },1000)
@@ -57,7 +62,7 @@ class CheckoutModal extends React.Component {
     setOrderNum(num){
         console.log(num)
         this.setState({
-            orderNum: 123456
+            orderNum: num,
         })
     }
 
@@ -76,15 +81,16 @@ class CheckoutModal extends React.Component {
                     </button>
                     
                     {this.state.orderNum ? 
-                    
-                    <h2>Your Order Number: {this.state.orderNum}</h2>
-                    
+                    <div>
+                        <h1>Success</h1> 
+                        <h2>Your Order Number is: {this.state.orderNum}</h2>
+                    </div>
                     : 
 
                     (<><h2>Checkout</h2>
                     <div >
                         <p>Your total is {this.props.total.toFixed(2)}</p>
-                        <p>Your qty is {this.props.qty.toFixed(2)}</p>
+                        <p>Your quantity is {this.props.qty.toFixed(2)}</p>
                         <p>Your order weight is {this.props.weight.toFixed(2)}</p>
 
                         <input
