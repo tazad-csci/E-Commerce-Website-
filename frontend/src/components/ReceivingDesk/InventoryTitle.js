@@ -6,8 +6,8 @@ export default function InventoryTitle(props) {
 
     return (
         <div className="filter-bar">
-            <span className="website-header">Recieving</span>
-        </div>
-
+        <span className="website-header"> Parts Buyer   Receving </span>
+    </div>
     )
 }
+
