@@ -41,7 +41,7 @@ class CheckoutModal extends React.Component {
             items: this.props.items,
         }
         try{
-            var response = axios.post("https://sugarytomatoes.com/order/checkout", post_data)
+            var response =   response = axios.post("https://sugarytomatoes.com/order/checkout", post_data)
             if (response) {
                 this.setOrderNum(response)
             }
@@ -49,7 +49,6 @@ class CheckoutModal extends React.Component {
         catch(e){
             console.log(e)
         }
-        response = axios.post("https://sugarytomatoes.com/order/checkout", post_data)
     }
 
     setOrderNum(num){
@@ -82,7 +81,7 @@ class CheckoutModal extends React.Component {
                     (<><h2>Checkout</h2>
                     <div >
                         <p>Your total is {this.props.total.toFixed(2)}</p>
-                        <p>Your qty is {this.props.total.toFixed(2)}</p>
+                        <p>Your qty is {this.props.qty.toFixed(2)}</p>
                         <p>Your order weight is {this.props.weight.toFixed(2)}</p>
 
                         <input
