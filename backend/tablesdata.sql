@@ -1,4 +1,5 @@
 drop table inventory;
+drop table partsForOrder;
 drop table orders;
 drop table shippingInfo;
 drop table adminVariables;

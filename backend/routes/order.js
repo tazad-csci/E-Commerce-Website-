@@ -3,23 +3,41 @@ var router = express.Router();
 var axios = require('axios');
 const pools = require('../functions/Pools');
 
-function decreaseQuantity(num, qty){
-    pools.query_new(`update inventory set onHand = onHand - ${qty} where partNumber = ${num}`, (data)=>{
+function decreaseQuantity(num, qty) {
+    pools.query_new(`update inventory set onHand = onHand - ${qty} where partNumber = ${num}`, (data) => {
 
     });
 }
 
-function finalizeOrder(card_info, parts, auth){
+function finalizeOrder(card_info, parts, auth) {
     console.log()
-    pools.query_new(`insert into shippingInfo(full_address, full_name, email) values ("${card_info.address}", "${card_info.name}","${card_info.email}")`, (res)=>{
-        shipping_id = res.insertId; 
-        pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","${card_info.amount}",${shipping_id},"${auth}")`, (res)=>{
+    pools.query_new(`insert into shippingInfo(full_address, full_name, email) values ("${card_info.address}", "${card_info.name}","${card_info.email}")`, (res) => {
+        shipping_id = res.insertId;
+        pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","${card_info.amount}",${shipping_id},"${auth}")`, (res) => {
             order_id = res.insertId;
-            
+            parts.forEach(part => {
+                pools.query_new(`insert into partsForOrder(orderID, partNumber, partName, partWeight, partCost, qty) values (${order_id},${part.part.number},${part.part.description},${part.part.weight},${part.part.price},${part.qty})`)
+            });
         })
     })
     console.log("done")
 }
+
+router.get('/orders', (req, res, next) => {
+    pools.query_new('select * from orders;', (data) => {
+        order_list = data;
+        pools.query_new('select * from shippingInfo;', (data) => {
+            shipping_info = data;
+            res.json({
+                order_list, shipping_info
+            })
+        })
+    })
+})
+
+router.get('/shippingInfo', (req, res, next) => {
+
+})
 
 router.post('/checkout', function (req, res, next) {
     data = req.body
@@ -37,25 +55,27 @@ router.post('/checkout', function (req, res, next) {
 
         axios.post('http://blitz.cs.niu.edu/CreditCard/', data.cardInfo)
             .then(
-                (res_data)=>{
+                (res_data) => {
 
-                    if(res_data.data  && res_data.data.errors === undefined){
+                    if (res_data.data && res_data.data.errors === undefined) {
                         finalizeOrder(data.cardInfo, data.parts, res_data.data.authorization)
-                    data.items.forEach(item => {
-                        decreaseQuantity(item.part.number, item.qty);
-                    });
-                    console.log(res_data.data)
-                    res.json({
-                        auth: res_data.data.authorization,
-                        id: data.cardInfo.trans,
-                    })}else{
+                        data.items.forEach(item => {
+                            decreaseQuantity(item.part.number, item.qty);
+                        });
+                        console.log(res_data.data)
+                        res.json({
+                            auth: res_data.data.authorization,
+                            id: data.cardInfo.trans,
+                        })
+                    } else {
                         console.log(res_data.data.errors)
                         res.send(500);
                     }
                 }
-            ).catch((err)=>{
+            ).catch((err) => {
                 console.log(err)
-                res.send(500);}
+                res.send(500);
+            }
             )
     }
 })
