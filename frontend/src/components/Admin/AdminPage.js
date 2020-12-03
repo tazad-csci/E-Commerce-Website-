@@ -17,7 +17,7 @@ export default function AdminPage() {
     useEffect(() => {
         APICalls.orders.getOrders(orders => {
             setOrders(orders);
-        })
+        }, 1)
         APICalls.admin.getRules(rules => {
             setAdminRules(rules);
         })

@@ -26,8 +26,10 @@ function finalizeOrder(card_info, parts, auth) {
 }
 
 //todo: ability to only show orders needing to be shipped
-router.get('/orders', (req, res, next) => {
-    pools.query_new('select * from orders inner join shippingInfo on orders.shippingID = shippingInfo.shippingID;', (data) => {
+router.get('/orders/:incShipped', (req, res, next) => {
+    var incShipped = req.params.incShipped;
+    console.log("shipping ", incShipped)
+    pools.query_new(`select * from orders inner join shippingInfo on orders.shippingID = shippingInfo.shippingID ${incShipped == 1 ? '' : 'where orders.statusText = "auth"'};`, (data) => {
         order_list = data;
         pools.query_new('select * from partsForOrder;', (data) => {
             parts_included = data;
@@ -38,8 +40,10 @@ router.get('/orders', (req, res, next) => {
     })
 })
 
-router.get('/shippingInfo', (req, res, next) => {
-
+router.post('/setShipped', (req, res, next) => {
+    pools.query_new(`update orders set statusText = "shipped" where orderID = ${req.body.order_id}`, data=>{
+        res.json(data);
+    })
 })
 
 router.post('/checkout', function (req, res, next) {
