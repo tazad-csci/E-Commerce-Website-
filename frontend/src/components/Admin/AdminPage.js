@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import APICalls from '../../functions/APICalls';
 import FilterList from '../FilterList/FilterList';
+import './adminPage.css'
 
 export default function AdminPage() {
+    const [orders, setOrders] = useState({order_list: [], parts_included: []});
+    const [adminRules, setAdminRules] = useState([]);
+
+    useEffect(() => {
+      APICalls.orders.getOrders(orders=>{
+          setOrders(orders);
+      })
+    }, []);
+
     return (
         <>
-            <FilterList
-                name="Admin"
-            />
+            <FilterList name="Admin"/>
 
-            <div className="admin-contianer">
+            <div className="admin-container">
                 <div className="admin-content">
                     <h2>
                         Shipping costs
@@ -16,11 +25,11 @@ export default function AdminPage() {
                     <table>
 
                     </table>
-
+                    
                     <h2>
                         Orders
                     </h2>
-                    <table>
+                    <table className="admin-order-table">
                         <th>
                             Order Number
                         </th>
@@ -37,8 +46,26 @@ export default function AdminPage() {
                            Date 
                         </th>
 
-                        {[].map(order=>{
-                            
+                        {orders.order_list.map(order=>{
+                            return (
+                                <tr>
+                                    <td>
+                                        {order.orderNumber}
+                                    </td>
+                                    <td>
+                                        {order.statusText}
+                                    </td>
+                                    <td>
+                                        {order.amount}
+                                    </td>
+                                    <td>
+                                     View Order
+                                    </td>
+                                    <td>
+                                        {order.orderDate}
+                                    </td>
+                                </tr>
+                            )
                         })}
                     </table>
                 </div>

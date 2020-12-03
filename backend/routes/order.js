@@ -25,6 +25,7 @@ function finalizeOrder(card_info, parts, auth) {
     console.log("done")
 }
 
+//todo: ability to only show orders needing to be shipped
 router.get('/orders', (req, res, next) => {
     pools.query_new('select * from orders inner join shippingInfo on orders.shippingID = shippingInfo.shippingID;', (data) => {
         order_list = data;
@@ -47,7 +48,7 @@ router.post('/checkout', function (req, res, next) {
         // console.log(data)
         data.cardInfo.vendor = "Group6A-Test"
         time_ms = (new Date().getTime()) + ""
-        data.cardInfo.trans = "9005-" + time_ms.slice(time_ms.length - 10, time_ms.length) + "-" + Math.random() * 10000;
+        data.cardInfo.trans = "9005-" + time_ms.slice(time_ms.length - 10, time_ms.length) + "-" + Math.floor(Math.random() * 10000);
         data.cardInfo.amount = 0;
 
 
@@ -55,6 +56,8 @@ router.post('/checkout', function (req, res, next) {
             data.cardInfo.amount += item.qty * item.part.price
         });
 
+
+        if(data.cardInfo.amount > 0)
         axios.post('http://blitz.cs.niu.edu/CreditCard/', data.cardInfo)
             .then(
                 (res_data) => {
@@ -64,7 +67,7 @@ router.post('/checkout', function (req, res, next) {
                         data.items.forEach(item => {
                             decreaseQuantity(item.part.number, item.qty);
                         });
-                        console.log(res_data.data)
+                        // console.log(res_data.data)
                         res.json({
                             auth: res_data.data.authorization,
                             id: data.cardInfo.trans,
@@ -79,6 +82,8 @@ router.post('/checkout', function (req, res, next) {
                 res.send(500);
             }
             )
+            else
+            res.send(500);
     }
 })
 
