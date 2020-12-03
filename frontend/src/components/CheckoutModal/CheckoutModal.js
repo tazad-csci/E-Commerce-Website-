@@ -72,13 +72,17 @@ class CheckoutModal extends React.Component {
                         Close
                     </button>
                     
-                    {this.state.orderNum ? this.state.orderNum : 
+                    {this.state.orderNum ? 
+                    
+                    <h2>Your Order Number: {this.state.orderNum}</h2>
+                    
+                    : 
 
                     (<><h2>Checkout</h2>
                     <div >
-                        ur total is {this.props.total.toFixed(2)}
-                        ur qty is {this.props.total.toFixed(2)}
-                        ur weight is {this.props.weight.toFixed(2)}
+                        <p>Your total is {this.props.total.toFixed(2)}</p>
+                        <p>Your qty is {this.props.total.toFixed(2)}</p>
+                        <p>Your order weight is {this.props.weight.toFixed(2)}</p>
 
                         <input
                             type="text"
