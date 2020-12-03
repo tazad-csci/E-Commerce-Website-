@@ -41,7 +41,7 @@ class CheckoutModal extends React.Component {
             items: this.props.items,
         }
         try{
-            var response = axios.post("http://localhost:2999/order/checkout", post_data)
+            var response =   response = axios.post("https://sugarytomatoes.com/order/checkout", post_data)
             if (response) {
                 this.setOrderNum(response)
             }
