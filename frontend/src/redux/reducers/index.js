@@ -17,6 +17,8 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0 }, action) {
     var items = [];
     switch (action.type) {
         case ADD_TO_CART:
+            if(action.qty > action.part.on_hand)
+                action.qty = action.part.on_hand;
             var item = {
                 part: action.part,
                 qty: action.qty
@@ -31,7 +33,9 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0 }, action) {
             if (exists !== undefined) {
                 items = state.items.map(arri => {
                     if (arri.part.number === item.part.number) {
-                        item.qty += exists.qty
+                        item.qty += parseInt(exists.qty)
+                        if(item.qty > item.part.on_hand)
+                            item.qty = item.part.on_hand;
                         return item;
                     } else {
                         return arri;
