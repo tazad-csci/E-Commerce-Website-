@@ -11,6 +11,7 @@ import Gallery from './container/Gallery';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import OrderPage from "./components/Warehouse/OrderPage"
 import AdminPage from './components/Admin/AdminPage';
+import InventoryPage from './components/ReceivingDesk/InventoryPage';
 
 const store = createStore(reducers);
 
