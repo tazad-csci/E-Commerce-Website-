@@ -52,7 +52,7 @@ function App() {
             </Route>
           <Route exact path="/s" component={OrderPage}/>
           <Route exact path="/a" component={AdminPage}/>
-          <Route exact path="/r" component={""}/>
+          <Route exact path="/r" component={InventoryPage}/>
         </Switch>
       </Router>
   );
