@@ -16,7 +16,9 @@ function finalizeOrder(card_info, parts, auth) {
         pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","${card_info.amount}",${shipping_id},"${auth}")`, (res) => {
             order_id = res.insertId;
             parts.forEach(part => {
-                pools.query_new(`insert into partsForOrder(orderID, partNumber, partName, partWeight, partCost, qty) values (${order_id},${part.part.number},${part.part.description},${part.part.weight},${part.part.price},${part.qty})`)
+                pools.query_new(`insert into partsForOrder(orderID, partNumber, partName, partWeight, partCost, qty) values (${order_id},${part.part.number},"${part.part.description}",${part.part.weight},${part.part.price},${part.qty})`, ()=>{
+                    //TODO: Send email!
+                })
             });
         })
     })
@@ -24,12 +26,12 @@ function finalizeOrder(card_info, parts, auth) {
 }
 
 router.get('/orders', (req, res, next) => {
-    pools.query_new('select * from orders;', (data) => {
+    pools.query_new('select * from orders inner join shippingInfo on orders.shippingID = shippingInfo.shippingID;', (data) => {
         order_list = data;
-        pools.query_new('select * from shippingInfo;', (data) => {
-            shipping_info = data;
+        pools.query_new('select * from partsForOrder;', (data) => {
+            parts_included = data;
             res.json({
-                order_list, shipping_info
+                order_list, parts_included
             })
         })
     })
@@ -42,7 +44,7 @@ router.get('/shippingInfo', (req, res, next) => {
 router.post('/checkout', function (req, res, next) {
     data = req.body
     if (data) {
-        console.log(data)
+        // console.log(data)
         data.cardInfo.vendor = "Group6A-Test"
         time_ms = (new Date().getTime()) + ""
         data.cardInfo.trans = "9005-" + time_ms.slice(time_ms.length - 10, time_ms.length) + "-" + Math.random() * 10000;
@@ -58,7 +60,7 @@ router.post('/checkout', function (req, res, next) {
                 (res_data) => {
 
                     if (res_data.data && res_data.data.errors === undefined) {
-                        finalizeOrder(data.cardInfo, data.parts, res_data.data.authorization)
+                        finalizeOrder(data.cardInfo, data.items, res_data.data.authorization)
                         data.items.forEach(item => {
                             decreaseQuantity(item.part.number, item.qty);
                         });
