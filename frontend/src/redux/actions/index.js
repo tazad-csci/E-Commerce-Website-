@@ -3,6 +3,7 @@ export const  SET_FILTER = 'SET_FILTER';
 
 export const  ADD_TO_CART = 'ADD_TO_CART';
 export const  SET_QTY_CART = 'SET_QTY_CART';
+export const  CLEAR_CART = 'CLEAR_CART';
 
 
 export var setPartsList = (parts_list) => (
@@ -28,5 +29,10 @@ export var setQtyCart = (part, qty) => (
     {
         type: SET_QTY_CART,
         part, qty
+    }
+)
+export var clearCart = () => (
+    {
+        type: CLEAR_CART,
     }
 )

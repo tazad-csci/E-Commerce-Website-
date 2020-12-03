@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-const { SET_PARTS_LIST, ADD_TO_CART, SET_QTY_CART, SET_FILTER } = require("../actions");
+const { SET_PARTS_LIST, ADD_TO_CART, SET_QTY_CART, SET_FILTER, CLEAR_CART } = require("../actions");
 
 function parts(state = { filter: "", order_by: "", parts: [] }, action) {
     switch (action.type) {
@@ -59,6 +59,8 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0 }, action) {
                 }
             })
             break;
+        case CLEAR_CART:
+            return { items: [], total: 0, qty: 0, weight: 0 };
         default:
             return state;
     }
