@@ -32,6 +32,12 @@ class InventoryPage extends React.Component {
                     <input type="text"
                         placeholder="Find Part..."
                         name="recieve"
+                        value={this.state.search}
+                        onChange={(e)=>{
+                            this.setState({
+                                search: e.target.value
+                            })
+                        }}
                     />
 
                 </span>
@@ -47,7 +53,12 @@ class InventoryPage extends React.Component {
                             QTY
                         </th>
                     </tr>
-                    {this.state.data.map(part => {
+                    {this.state.data.filter(part=>{
+                        if(JSON.stringify(part).toString().includes(this.state.search.toLowerCase())){
+                            return true;
+                        }
+                        return false;
+                    }).map(part => {
                         return (
                             <tr key={part.number}>
                                 <td>

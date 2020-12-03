@@ -19,7 +19,7 @@ class OrderPage extends React.Component {
     render() {
         return(
             <div>
-               <FilterList />
+               <FilterList name={"Shipping"} />
                <OrderList orders={Orders}/>
             </div>
         )
