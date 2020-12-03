@@ -1,5 +1,5 @@
 import React,{ useState, useEffect } from 'react';
-import InventoryList from './InventoryList';
+import InventoryTitle from './InventoryTitle';
 import './inventoryPage.css';
 
 
@@ -14,21 +14,19 @@ class InventoryPage extends React.Component {
         }
     }
 
-
 render(){
     return(
         <div className="inventory-list">
             
-            <InventoryList></InventoryList> <br></br>
+            <InventoryTitle></InventoryTitle> <br></br>
             <span className="searchBar">
             <input  type="text"
-                placeholder="Search for Part..."  
+                placeholder="Find Part..."  
                 name="recieve"        
             />
 
             </span><br></br>
-            <fieldset className="field">
-               <table className="table">
+               <table className="parts-Table">
                    <tr>
                        <th>
                            Name
@@ -36,13 +34,22 @@ render(){
                        <th>
                            ID-Part
                         </th>
+                   </tr>
+                   <tr className="table-Headers">
+                       <th>
+                           ???
+                        </th>
+                       <th>
+                           ???
+                       </th>
                        <th>
                          <label for="quantity">Qty </label>
                          <input type="number" id="quantity" name="quantity" min="1"></input>
                        </th>
                    </tr>
-               </table>
-            </fieldset>
+               </table>               
+               <input type="submit" value="Update Parts"></input>
+
       </div>
       )
     }
