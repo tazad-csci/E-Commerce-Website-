@@ -28,12 +28,32 @@ const query_legacy = (query, cb) => {
     })
 }
 
-//const pool_new = mysql.createPool({
-//     connectionLimit: 5,
-//     host:"localhost",
-//     user:"root",
-//     password:"password",
-//     database:"csci467",
-// })
+const pool_new = mysql.createPool({
+    connectionLimit: 5,
+    host: "192.168.1.150",
+    user: "remote",
+    password: "password",
+    database: "partdb",
+})
 
-module.exports = query_legacy;
+const query_new = (query, cb) => {
+    pool_new.getConnection((err, conn) => {
+        if (err) {
+            cb(false)
+            return;
+        }
+        conn.query(query, (err, results) => {
+            conn.release();
+            if (!err)
+                cb(results);
+        });
+
+        conn.on('error', (err) => {
+            cb(false)
+            return;
+        })
+
+    })
+}
+
+module.exports = {query_legacy, query_new};

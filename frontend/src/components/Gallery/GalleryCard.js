@@ -35,7 +35,7 @@ class GalleryCard extends React.Component {
                 </img>
 
                 <p>{this.props.item.description}</p>
-                <p>Quantity Available: {this.props.item.quantity}</p>
+                <p>Quantity Available: {this.props.item.on_hand}</p>
                 <label>${this.props.item.price}</label>
                 <button onClick={
                     ()=>{

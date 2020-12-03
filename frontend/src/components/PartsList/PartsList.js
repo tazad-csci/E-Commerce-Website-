@@ -30,6 +30,9 @@ export default function PartsList(props) {
                 }
             </div>
             <div className="parts-list-totals">
+                <div className="parts-list-small parts-list-count-title">Weight:</div>
+                <div className="parts-list-small parts-list-counts">{props.weight.toFixed(2)}lbs</div>
+                <br />
                 <div className="parts-list-small parts-list-count-title">QTY:</div>
                 <div className="parts-list-small parts-list-counts">{props.qty}</div>
                 <br />
@@ -59,24 +62,28 @@ function CartItem(props) {
                 {props.item.part.description}
             </div>
             <div className="cart-item-text cart-item-avail">
-                available: {props.item.part.instock}
+                available: {props.item.part.on_hand}
             </div>
             <div className="cart-item-text cart-item-qty">
-                qty: 
+                qty:
                 <input type="number" className="cart-item-input"
                     value={props.item.qty}
-                    onChange={e =>{
-                        if(e.target.value > 0)
-                        props.setQty(props.item.part, e.target.value)}}>
+                    onChange={e => {
+                        if (e.target.value > 0 && e.target.value <= props.item.part.on_hand)
+                            props.setQty(props.item.part, e.target.value)
+                    }}>
                 </input>
-                <span style={{borderBottom: "1px solid black", cursor: "pointer"}}
+                <span style={{ borderBottom: "1px solid black", cursor: "pointer" }}
                     onClick={
-                        ()=>props.setQty(props.item.part, 0)
+                        () => props.setQty(props.item.part, 0)
                     }
                 >
                     remove item
                 </span>
             </div>
+            <div className="cart-item-text cart-item-price">
+                {props.item.qty} @ {props.item.part.weight}lbs = {(props.item.qty * props.item.part.weight).toFixed(2)}lbs
+                        </div>
             <div className="cart-item-text cart-item-price">
                 {props.item.qty} @ ${props.item.part.price} = ${(props.item.qty * props.item.part.price).toFixed(2)}
             </div>
