@@ -37,7 +37,8 @@ class CheckoutModal extends React.Component {
                 cc: this.state.cc,
                 name: this.state.name,
                 exp: this.state.exp,
-            }
+            },
+            items: this.props.items,
         }
         axios.post("http://localhost:2999/order/checkout", post_data)
         .then(function(response){
