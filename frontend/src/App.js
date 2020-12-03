@@ -26,7 +26,6 @@ APICalls.parts.list((data) => {
 });
 
 APICalls.admin.getRules((data)=>{
-  console.log(data);
   store.dispatch(setShipping(data));
 })
 

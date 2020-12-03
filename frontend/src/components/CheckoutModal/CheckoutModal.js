@@ -43,6 +43,7 @@ class CheckoutModal extends React.Component {
                 exp: this.state.exp,
                 address: this.state.mailingAddr,
                 email: this.state.email,
+                amount: parseFloat(this.props.total.toFixed(2))+parseFloat(this.props.shipping.total.toFixed(2)),
             },
             items: this.props.items,
         }

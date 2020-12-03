@@ -11,8 +11,8 @@ function parts(state = { filter: "", order_by: "", parts: [] }, action) {
             return state;
     }
 }
-
-function cart(state = { items: [], total: 0, qty: 0, weight: 0, shipping_cost: {total: 0, rule: {cost:0, rule_value: 0}}, shipping: []}, action) {
+const init = { items: [], total: 0, qty: 0, weight: 0, shipping_cost: {total: 0, rule: {cost:0, rule_value: 0}}, shipping: []}
+function cart(state = init, action) {
     var items = [];
     switch (action.type) {
         case ADD_TO_CART:
@@ -59,7 +59,7 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0, shipping_cost: {
             })
             break;
         case CLEAR_CART:
-            return { items: [], total: 0, qty: 0, weight: 0 };
+            return init;
         case SET_SHIPPING:
             return Object.assign({}, state, {shipping: action.payload});
         default:
@@ -79,7 +79,7 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0, shipping_cost: {
         weight += item.qty*item.part.weight;
     });
 
-    var shipping_cost = 0;
+    var shipping_cost = {total: 0, rule: {cost:0, rule_value: 0}};
 
     state.shipping.forEach(shipping_rule => {
         if(weight > shipping_rule.rule_value){
@@ -88,7 +88,7 @@ function cart(state = { items: [], total: 0, qty: 0, weight: 0, shipping_cost: {
     });
 
     // total += shipping_cost.total;    
-
+    console.log("hehre", shipping_cost)
     return Object.assign({}, state, {items, total, qty, weight, shipping_cost});
 }
 

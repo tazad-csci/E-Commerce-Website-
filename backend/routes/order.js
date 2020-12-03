@@ -25,7 +25,7 @@ function finalizeOrder(card_info, parts, auth) {
     console.log("done")
 }
 
-//todo: ability to only show orders needing to be shipped
+
 router.get('/orders/:incShipped', (req, res, next) => {
     var incShipped = req.params.incShipped;
     console.log("shipping ", incShipped)
@@ -43,22 +43,23 @@ router.get('/orders/:incShipped', (req, res, next) => {
 router.post('/setShipped', (req, res, next) => {
     pools.query_new(`update orders set statusText = "shipped" where orderID = ${req.body.order_id}`, data=>{
         res.json(data);
+        //TODO: send shipping message
     })
 })
 
 router.post('/checkout', function (req, res, next) {
     data = req.body
-    if (data) {
+    if (data) { 
         // console.log(data)
         data.cardInfo.vendor = "Group6A-Test"
         time_ms = (new Date().getTime()) + ""
         data.cardInfo.trans = "9005-" + time_ms.slice(time_ms.length - 10, time_ms.length) + "-" + Math.floor(Math.random() * 10000);
-        data.cardInfo.amount = 0;
+        // data.cardInfo.amount = 0;
 
 
-        data.items.forEach(item => {
-            data.cardInfo.amount += item.qty * item.part.price
-        });
+        // data.items.forEach(item => {
+        //     data.cardInfo.amount += item.qty * item.part.price
+        // });
 
 
         if(data.cardInfo.amount > 0)
