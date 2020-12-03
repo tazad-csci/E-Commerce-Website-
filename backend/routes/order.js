@@ -4,7 +4,9 @@ var axios = require('axios');
 const pools = require('../functions/Pools');
 
 function decreaseQuantity(num, qty){
-    pools.query_new(`update inventory set onHand = onHand - ${qty} where partNumber = ${num}`);
+    pools.query_new(`update inventory set onHand = onHand - ${qty} where partNumber = ${num}`, (data)=>{
+
+    });
 }
 
 router.post('/checkout', function (req, res, next) {
@@ -30,13 +32,11 @@ router.post('/checkout', function (req, res, next) {
                         id: data.cardInfo.trans,
                     })
                 }
-            ).catch(
-                console.log
+            ).catch((err)=>{
+                console.log(err)
+                res.send(500);}
             )
-
-
     }
-    res.send(200)
 })
 
 module.exports = router;
