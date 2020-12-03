@@ -5,7 +5,7 @@ import './adminPage.css'
 
 export default function AdminPage() {
     const [orders, setOrders] = useState({ order_list: [], parts_included: [] });
-    const [adminRules, setAdminRules] = useState([1, 2, 3]);
+    const [adminRules, setAdminRules] = useState([]);
     const [modal, setModal] = useState({});
     const [rule, setRule] = useState({ cost: 0, value: 0 })
 

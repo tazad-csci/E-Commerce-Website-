@@ -39,8 +39,7 @@ export default function PartsList(props) {
                 <br />
                 <div className="parts-list-small parts-list-count-title">GRAND TOTAL:</div>
                 <div className="parts-list-small parts-list-counts">${
-                parseFloat( props.total.toFixed(2))+
-                parseFloat( props.shipping.total.toFixed(2))}</div>
+                (parseFloat(props.total)+parseFloat(props.shipping.total)).toFixed(2)}</div>
             </div>
             <div className="parts-list-buttons">
                     <CheckoutButton />
