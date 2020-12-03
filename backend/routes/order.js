@@ -18,10 +18,10 @@ router.post('/checkout', function (req, res, next) {
         console.log(data)
         axios.post('http://blitz.cs.niu.edu/CreditCard/', data.cardInfo)
             .then(
-                (data)=>{
-                    console.log(data.data.authorization)
+                (res_data)=>{
+                    console.log(res_data.data.authorization)
                     res.json({
-                        auth: data.data.authorization,
+                        auth: res_data.data.authorization,
                         id: data.cardInfo.trans,
                     })
                 }
