@@ -9,8 +9,11 @@ function decreaseQuantity(num, qty){
     });
 }
 
-function finalizeOrder(parts, amount, trans_id){
-    
+function finalizeOrder(card_info, parts, auth){
+    pools.query_new(`insert into shippingInfo (full_address, full_name, email) values (${card_info.address}, ${card_info.name}, ${card_info.email})`, res=>{
+        console.log(res)
+        // pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES (${card_info.trans},${card_info.amount},${},${auth})`, ()=>{})
+    })
 }
 
 router.post('/checkout', function (req, res, next) {
