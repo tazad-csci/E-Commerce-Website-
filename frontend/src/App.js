@@ -10,6 +10,7 @@ import Gallery from './container/Gallery';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import OrderPage from "./components/Warehouse/OrderPage"
+import AdminPage from './components/Admin/AdminPage';
 
 const store = createStore(reducers);
 
@@ -45,7 +46,7 @@ function App() {
               </Provider>
             </Route>
           <Route exact path="/s" component={OrderPage}/>
-          <Route exact path="/a" component={""}/>
+          <Route exact path="/a" component={AdminPage}/>
           <Route exact path="/r" component={""}/>
         </Switch>
       </Router>
