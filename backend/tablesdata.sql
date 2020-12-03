@@ -3,8 +3,8 @@ drop table orders;
 drop table shippingInfo;
 drop table adminVariables;
 create table inventory(partNumber int auto_increment, onHand int, primary key (partNumber));
-create table shippingInfo(shippingNumber int auto_increment, full_address text, full_name text, email text, primary key (shippingNumber));
-create table orders(orderNumber int auto_increment, shippingNumber int, creditAuth text, primary key (orderNumber), foreign key (shippingNumber) references shippingInfo(shippingNumber));
+create table shippingInfo(shippingID int auto_increment, full_address text, full_name text, email text, primary key (shippingID));
+create table orders(orderID int auto_increment, orderNumber text, amount float, shippingID int, creditAuth text, primary key (orderID), foreign key (shippingID) references shippingInfo(shippingID));
 create table adminVariables(id int auto_increment , rule_name text,  rule_value int, primary key(id));
 
 insert into inventory(partNumber, onHand) values (1, 12);

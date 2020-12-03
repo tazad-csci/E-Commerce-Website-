@@ -9,6 +9,10 @@ function decreaseQuantity(num, qty){
     });
 }
 
+function finalizeOrder(parts, amount, trans_id){
+    
+}
+
 router.post('/checkout', function (req, res, next) {
     data = req.body
     if (data) {
@@ -21,11 +25,10 @@ router.post('/checkout', function (req, res, next) {
             data.cardInfo.amount += item.qty * item.part.price
         });
 
-        console.log(data)
         axios.post('http://blitz.cs.niu.edu/CreditCard/', data.cardInfo)
             .then(
                 (res_data)=>{
-                    console.log(res_data)
+
                     if(res_data.data  && res_data.data.errors === undefined){
                     data.items.forEach(item => {
                         decreaseQuantity(item.part.number, item.qty);
