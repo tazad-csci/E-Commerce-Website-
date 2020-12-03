@@ -3,6 +3,10 @@ var router = express.Router();
 var axios = require('axios');
 const pools = require('../functions/Pools');
 
+function decreaseQuantity(num, qty){
+    pools.query_new(`update inventory set onHand = onHand - ${qty} where partNumber = ${num}`);
+}
+
 router.post('/checkout', function (req, res, next) {
     data = req.body
     if (data) {
@@ -13,6 +17,7 @@ router.post('/checkout', function (req, res, next) {
 
         data.items.forEach(item => {
             data.cardInfo.amount += item.qty * item.part.price
+            decreaseQuantity(item.part.number, item.qty);
         });
 
         console.log(data)
