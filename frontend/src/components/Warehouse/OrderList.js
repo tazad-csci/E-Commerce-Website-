@@ -1,6 +1,7 @@
 import React from 'react';
-import axios from 'axios';
-//import OrderCard from './OrderCard';
+import APICalls from '../../functions/APICalls';
+import OrderCard from './OrderCard';
+import './OrderList.css'
 
 
 class OrderList extends React.Component {
@@ -11,23 +12,7 @@ class OrderList extends React.Component {
         this.state = {
             search: "",
             data: [],
-            isLoading: false,
-            error: null,
         }       
-    }
-
-    async getOrders() {
-        this.setState({isLoading: true})
-        
-        try {
-            const response = await axios.get('')
-            const items = response.data
-            this.setState({data: items})
-        } catch(err) {
-            console.log(err)
-        }
-
-        this.setState({isLoading: false})
     }
 
     handleChange(event) {
@@ -36,10 +21,18 @@ class OrderList extends React.Component {
             [name]: value,
         })
     }
+    componentDidMount(){
+        APICalls.orders.getOrders(data =>{
+            console.log(data)
+            this.setState({
+                data: data.order_list,
+            })
+        })
+    }
 
     render() {
         return(
-            <div>
+            <div className="order-list-wrapper">
               
                 <h1>Out Going Orders</h1>
                 <input
@@ -56,14 +49,8 @@ class OrderList extends React.Component {
                         <th>Shipping Label and Invoice</th>
                         <th>Update Order Status</th>
                     </tr>
-                    {/* {this.props.data.map(order => <OrderCard item={order} />)} */}
-                    {this.props.data.map(order => 
-                    <tr>
-                        <td>{this.props.order.id}</td>
-                        <td>{this.props.order.name}</td>
-                        <td>Show Invoice and Label</td>
-                    </tr>
-                        )}
+                    {/* {this.state.data.map(order => <OrderCard item={order} />)} */}
+                      
                 </table>
             </div>
         )

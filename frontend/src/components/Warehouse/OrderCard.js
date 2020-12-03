@@ -12,11 +12,11 @@ class OrderCard extends React.Component {
 
 
     render() {
+        console.log(this.props.order)
         return(
-            <div>
-                {this.props.order.name}
-                {this.props.order.id}
-            </div>
+            <tr>
+                <td>{this.props.order.orderID}</td>
+            </tr>
         )
     }
 }
