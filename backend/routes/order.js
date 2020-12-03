@@ -10,17 +10,23 @@ function decreaseQuantity(num, qty){
 }
 
 function finalizeOrder(card_info, parts, auth){
-    pools.query_new(`insert into shippingInfo (full_address, full_name, email) values (${card_info.address}, ${card_info.name}, ${card_info.email})`, res=>{
-        console.log(res)
-        // pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES (${card_info.trans},${card_info.amount},${},${auth})`, ()=>{})
+    console.log()
+    pools.query_new(`insert into shippingInfo(full_address, full_name, email) values ("${card_info.address}", "${card_info.name}","${card_info.email}")`, (res)=>{
+        shipping_info = 
+        pools.query_new(`insert into orders (orderNumber, amount, shippingID, creditAuth) VALUES ("${card_info.trans}","${card_info.amount}",${res.insertId},"${auth}")`, (res)=>{
+            order_id = res.insertId;
+        })
     })
+    console.log("done")
 }
 
 router.post('/checkout', function (req, res, next) {
     data = req.body
     if (data) {
+        console.log(data)
         data.cardInfo.vendor = "Group6A-Test"
-        data.cardInfo.trans = new Date();
+        time_ms = (new Date().getTime()) + ""
+        data.cardInfo.trans = "9005-" + time_ms.slice(time_ms.length - 10, time_ms.length) + "-" + Math.random() * 10000;
         data.cardInfo.amount = 0;
 
 
@@ -33,14 +39,16 @@ router.post('/checkout', function (req, res, next) {
                 (res_data)=>{
 
                     if(res_data.data  && res_data.data.errors === undefined){
+                        finalizeOrder(data.cardInfo, data.parts, res_data.data.authorization)
                     data.items.forEach(item => {
                         decreaseQuantity(item.part.number, item.qty);
                     });
-                    console.log(res_data.data.authorization)
+                    console.log(res_data.data)
                     res.json({
                         auth: res_data.data.authorization,
                         id: data.cardInfo.trans,
                     })}else{
+                        console.log(res_data.data.errors)
                         res.send(500);
                     }
                 }

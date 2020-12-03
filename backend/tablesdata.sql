@@ -6,9 +6,9 @@ create table inventory(partNumber int auto_increment, onHand int, primary key (p
 
 create table shippingInfo(shippingID int auto_increment, full_address text, full_name text, email text, primary key (shippingID));
 
-create table orders(orderID int auto_increment, orderNumber text, amount float, shippingID int, creditAuth text, primary key (orderID), foreign key (shippingID) references shippingInfo(shippingID));
+create table orders(orderID int auto_increment, shipped bool, orderNumber text, amount float, shippingID int, creditAuth text, primary key (orderID), foreign key (shippingID) references shippingInfo(shippingID));
 
-create table partsForOrder(pfo int auto_increment, orderID int, partNumber int, qty int, foreign key (orderID) references orders(orderID), primary key (pfo));
+create table partsForOrder(pfo int auto_increment, orderID int, partNumber int, partName text, partWeight float, partCost float, qty int, foreign key (orderID) references orders(orderID), primary key (pfo));
 
 create table adminVariables(id int auto_increment , rule_name text,  rule_value int, primary key(id));
 
