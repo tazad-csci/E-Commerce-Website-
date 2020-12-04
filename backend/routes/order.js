@@ -18,9 +18,9 @@ function finalizeOrder(card_info, parts, auth) {
             order_id = res.insertId;
             parts.forEach(part => {
                 pools.query_new(`insert into partsForOrder(orderID, partNumber, partName, partWeight, partCost, qty) values (${order_id},${part.part.number},"${part.part.description}",${part.part.weight},${part.part.price},${part.qty})`, ()=>{
-                    Email.sendConfirmation(card_info.email, card_info.trans, parts);
                 })
             });
+            Email.sendConfirmation(card_info.email, card_info.trans, parts);
         })
     })
     console.log("done")
@@ -43,8 +43,12 @@ router.get('/orders/:incShipped', (req, res, next) => {
 
 router.post('/setShipped', (req, res, next) => {
     pools.query_new(`update orders set statusText = "shipped" where orderID = ${req.body.order_id}`, data=>{
+        console.log("Yeet!")
         res.json(data);
-        //TODO: send shipping message
+        pools.query_new(`select * from orders inner join shippingInfo on orders.shippingID = shippingInfo.shippingID where orderId = ${req.body.order_id}`, (data)=>{
+            console.log("Hi!", data)
+            Email.sendShipped(data[0].email, data[0].orderNumber);
+        });
     })
 })
 

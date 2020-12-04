@@ -8,30 +8,14 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const mailOptions = {
-  from: 'vindication@enron.com',
-  to: 'friendsofenron@gmail.com, enemiesofenron@gmail.com',
-  subject: 'Invoices due',
-  text: 'Dudes, we really need your money.'
-};
-
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-	console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
-
-
 function sendConfirmation(email, orderNumber, parts){
-    var email_body = "Thank you for your order! If you forgot what you ordered... Heres a list of partS!";
+    var email_body = "Thank you for your order! If you forgot what you ordered... Heres a list of parts!\n";
     parts.forEach(part => {
         email_body += '\n';
-        email_body += `${part.part.description} $${part.part.price} ${part.qty}`;
+        email_body += `partname: ${part.part.description} partprice: $${part.part.price} qty: ${part.qty}`;
     });
-    email_body += "\nThats it!";
-    
+    email_body += "\n\nThats it!";
+
     transporter.sendMail({
         from: 'PartsBuyerNIU@gmail.com',
         to: email,
@@ -47,7 +31,19 @@ function sendConfirmation(email, orderNumber, parts){
 }
 
 function sendShipped(email, orderNumber){
-
+    var email_body = "Your order has shipped!";
+    transporter.sendMail({
+        from: 'PartsBuyerNIU@gmail.com',
+        to: email,
+        subject: `Shipping Confirmation for order ${orderNumber}`,
+        text: email_body
+    }, (err, info)=>{
+        if (err) {
+            console.log(err);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+    })
 }
 
 module.exports = {sendConfirmation, sendShipped}
