@@ -31,9 +31,40 @@ export default function AdminPage() {
                     <div className="admin-modal">
                         <div className="admin-modal-content">
                             <button onClick={()=>setModal(null)}>Close</button>
-                            {JSON.stringify(modal)}
-                            {JSON.stringify(orders.parts_included.filter(part => part.orderID === modal.orderID))}
-                            
+                            <table>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Street Address</th>
+                                    <th>Order Number</th>
+                                    <th>Order Status</th>
+                                </tr>
+                                <tr>
+                                    <td>{modal.full_name}</td>
+                                    <td>{modal.email}</td>
+                                    <td>{modal.full_address}</td>
+                                    <td>{modal.orderNumber}</td>
+                                    <td>{modal.statusText}</td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <th>Part Number</th>
+                                    <th>Part Name</th>
+                                    <th>Part Weight</th>
+                                    <th>Part Cost</th>
+                                    <th>Part Qty</th>
+                                </tr>
+                                {orders.parts_included.filter(part => part.orderID === modal.orderID).map(part => 
+                                    <tr>
+                                        <td>{part.partNumber}</td>
+                                        <td>{part.partName}</td>
+                                        <td>{part.partWeight}</td>
+                                        <td>{part.partCost}</td>
+                                        <td>{part.qty}</td>
+                                    </tr>
+                                    )}
+                            </table>
                         </div>
                     </div>
                     )

@@ -55,6 +55,11 @@
     margin: 15% auto; 
     padding: 20px;
     max-width: 90%; 
-    width: 600px;
+    width: 800px;
     background-color: #e8e3e5;
+}
+.admin-modal-content table {
+    margin: 25px auto;
+    text-align: left;
+    width: 90%;
 }
