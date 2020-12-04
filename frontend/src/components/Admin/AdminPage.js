@@ -28,7 +28,12 @@ export default function AdminPage() {
             {
                 modal ?
                 (
-                    "MODAL"
+                    <div className="admin-modal">
+                        <div className="admin-modal-content">
+                            <button >Close</button>
+                            I am a modal
+                        </div>
+                    </div>
                     )
                 :
                 ("")
