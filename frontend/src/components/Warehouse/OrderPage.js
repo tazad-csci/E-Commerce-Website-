@@ -1,9 +1,9 @@
 import React from 'react';
 import OrderList from './OrderList';
 import FilterList from '../FilterList/FilterList'
+import './OrderPage.css'
 
 const Orders = {"order_list":[{"orderID":1,"shipped":null,"orderNumber":"9005-6970462273-837.14765644187","amount":1075.8,"shippingID":1,"creditAuth":"10975"}],"shipping_info":[{"shippingID":1,"full_address":"fsdf","full_name":"fsd","email":"fds"}]}
-
 
 class OrderPage extends React.Component {
 
@@ -19,7 +19,9 @@ class OrderPage extends React.Component {
     render() {
         return(
             <div>
-               <FilterList name={"Shipping"} />
+                <div className="header-hide">
+                    <FilterList name={"Shipping"}/>
+                </div>
                <OrderList orders={Orders}/>
             </div>
         )

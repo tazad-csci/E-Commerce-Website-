@@ -1,6 +1,6 @@
 import React from 'react';
 import APICalls from '../../functions/APICalls';
-import OrderCard from './OrderCard';
+import InvoiceModalButton from './InvoiceModalButton';
 import './OrderList.css'
 
 
@@ -12,7 +12,15 @@ class OrderList extends React.Component {
         this.state = {
             search: "",
             data: [],
+            show: false,
         }
+    }
+
+    showModal = e => {
+        this.setState({
+            show: !this.state.show
+        })
+        console.log("CLIKCED")
     }
 
     handleChange(event) {
@@ -26,6 +34,7 @@ class OrderList extends React.Component {
             console.log(data)
             this.setState({
                 data: data.order_list,
+                parts_included: data.parts_included,
             })
         })
     }
@@ -64,23 +73,27 @@ class OrderList extends React.Component {
 
                 <table>
                     <tr>
-                        <th>Order Number</th>
-                        <th>Customer Name</th>
-                        <th>Shipping Label and Invoice</th>
-                        <th>Update Order Status</th>
+                        <th className="th-hide">Order Number</th>
+                        <th className="th-hide">Customer Name</th>
+                        <th className="th-hide">Shipping Label and Invoice</th>
+                        <th className="th-hide">Update Order Status</th>
                     </tr>
-                    {/* {this.state.data.map(order => <OrderCard item={order} />)} */}
+                    
                     {this.state.data.map(order=>{
+
+                        var parts = this.state.parts_included.filter(part=> part.orderID === order.orderID)
+                        console.log(parts)
+
                         return (
                             <tr>
-                                <td>
+                                <td className="td-hide">
                                     {order.orderNumber}
                                 </td>
-                                <td>
+                                <td className="td-hide">
                                     {order.full_name}
                                 </td>
-                                <td>
-                                    Print Label
+                                <td className="invoice-label">
+                                    <InvoiceModalButton order={order} parts={parts}/>
                                 </td>
                                 <td 
                                     className="clickable-td"

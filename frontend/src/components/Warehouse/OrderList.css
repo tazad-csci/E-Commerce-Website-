@@ -21,3 +21,21 @@
     cursor: pointer;
     color: blue;
 }
+
+@media print {
+    .order-list-wrapper h1, input{
+        display: none;
+    }
+    .order-list-wrapper table {
+        border: none;
+    }
+    .td-hide {
+        display: none;
+    }
+    .clickable-td{
+       display: none;
+    }
+    .th-hide {
+        display: none;
+    }
+}
