@@ -6,7 +6,7 @@ import './adminPage.css'
 export default function AdminPage() {
     const [orders, setOrders] = useState({ order_list: [], parts_included: [] });
     const [adminRules, setAdminRules] = useState([]);
-    const [modal, setModal] = useState({});
+    const [modal, setModal] = useState(null);
     const [rule, setRule] = useState({ cost: 0, value: 0 })
 
     const [orderFilter, setOrderFilter] = useState("")
@@ -25,6 +25,15 @@ export default function AdminPage() {
 
     return (
         <>
+            {
+                modal ?
+                (
+                    "MODAL"
+                    )
+                :
+                ("")
+            }
+
             <FilterList name="Admin" />
 
             <div className="admin-container">
