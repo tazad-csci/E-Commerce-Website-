@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 const pools = require('../functions/Pools');
+const Email = require('../functions/Email');
 
 function decreaseQuantity(num, qty) {
     pools.query_new(`update inventory set onHand = onHand - ${qty} where partNumber = ${num}`, (data) => {
@@ -17,7 +18,7 @@ function finalizeOrder(card_info, parts, auth) {
             order_id = res.insertId;
             parts.forEach(part => {
                 pools.query_new(`insert into partsForOrder(orderID, partNumber, partName, partWeight, partCost, qty) values (${order_id},${part.part.number},"${part.part.description}",${part.part.weight},${part.part.price},${part.qty})`, ()=>{
-                    //TODO: Send email!
+                    Email.sendConfirmation(card_info.email, card_info.trans, parts);
                 })
             });
         })
