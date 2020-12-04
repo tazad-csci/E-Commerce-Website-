@@ -1,0 +1,42 @@
+.admin-container{
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+.admin-content{
+    grid-column: 2;
+}
+
+.admin-content input{
+    width: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.admin-content button{
+    margin-left: 20px;
+}
+
+.admin-container table{
+    width: 100%;
+    border: 1px solid black;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.clickable-td{
+    user-select: none;
+    cursor: pointer;
+    color: blue;
+}
+.clickable-td:hover{
+    background-color: #AAA;
+}
+
+.date-in{
+    width: 150px !important;
+}
+
+.admin-order-table{
+    margin-top: 20px;
+}

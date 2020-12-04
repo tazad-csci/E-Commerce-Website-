@@ -1,0 +1,41 @@
+.order-list-wrapper {
+    width: 70%;
+    margin: 20px auto;
+}
+.order-list-wrapper table {
+    width: 90%;
+    margin: 20px auto;
+    border: 1px solid black;
+}
+.order-list-wrapper .title, .filter{
+    float: left;
+}
+.filter {
+    margin: 30px;
+    padding: 10px 20px;
+    border-radius: .3rem;
+    border: 1px solid black;
+}
+.clickable-td{
+    user-select: none;
+    cursor: pointer;
+    color: blue;
+}
+
+@media print {
+    .order-list-wrapper h1, input{
+        display: none;
+    }
+    .order-list-wrapper table {
+        border: none;
+    }
+    .td-hide {
+        display: none;
+    }
+    .clickable-td{
+       display: none;
+    }
+    .th-hide {
+        display: none;
+    }
+}

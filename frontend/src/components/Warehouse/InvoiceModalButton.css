@@ -1,0 +1,9 @@
+.clickable-div {
+    user-select: none;
+    cursor: pointer;
+    color: blue;
+}
+
+.clickable-div :hover {
+    background: #999;
+}

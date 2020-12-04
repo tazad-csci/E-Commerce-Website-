@@ -1,11 +1,17 @@
 drop table inventory;
+drop table partsForOrder;
 drop table orders;
 drop table shippingInfo;
 drop table adminVariables;
 create table inventory(partNumber int auto_increment, onHand int, primary key (partNumber));
-create table shippingInfo(shippingNumber int auto_increment, full_address text, full_name text, phone_number int, primary key (shippingNumber));
-create table orders(orderNumber int auto_increment, shippingNumber int, creditAuth text, primary key (orderNumber), foreign key (shippingNumber) references shippingInfo(shippingNumber));
-create table adminVariables(id int auto_increment , rule_name text,  rule_value int, primary key(id));
+
+create table shippingInfo(shippingID int auto_increment, full_address text, full_name text, email text, primary key (shippingID));
+
+create table orders(orderID int auto_increment, orderDate DATETIME default now(), statusText text, orderNumber text, amount float, shippingID int, creditAuth text, primary key (orderID), foreign key (shippingID) references shippingInfo(shippingID));
+
+create table partsForOrder(pfo int auto_increment, orderID int, partNumber int, partName text, partWeight float, partCost float, qty int, foreign key (orderID) references orders(orderID), primary key (pfo));
+
+create table adminVariables(id int auto_increment , cost float,  rule_value float unique, primary key(id));
 
 insert into inventory(partNumber, onHand) values (1, 12);
 insert into inventory(partNumber, onHand) values (2, 22);

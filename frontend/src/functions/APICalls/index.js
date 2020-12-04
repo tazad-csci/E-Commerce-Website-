@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Admin from './Admin.js';
+import Orders from './Orders.js';
 import Parts from './Parts.js';
 
 const api = axios.create({
@@ -8,6 +10,8 @@ const api = axios.create({
 
 var APICalls = {
     parts: new Parts(api),
+    orders: new Orders(api),
+    admin: new Admin(api),
 }
 
 
