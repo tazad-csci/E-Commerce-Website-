@@ -3,6 +3,8 @@ drop table partsForOrder;
 drop table orders;
 drop table shippingInfo;
 drop table adminVariables;
+
+
 create table inventory(partNumber int auto_increment, onHand int, primary key (partNumber));
 
 create table shippingInfo(shippingID int auto_increment, full_address text, full_name text, email text, primary key (shippingID));
