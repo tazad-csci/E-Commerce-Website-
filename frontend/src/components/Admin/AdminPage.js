@@ -30,8 +30,10 @@ export default function AdminPage() {
                 (
                     <div className="admin-modal">
                         <div className="admin-modal-content">
-                            <button >Close</button>
-                            I am a modal
+                            <button onClick={()=>setModal(null)}>Close</button>
+                            {JSON.stringify(modal)}
+                            {JSON.stringify(orders.parts_included.filter(part => part.orderID === modal.orderID))}
+                            
                         </div>
                     </div>
                     )
