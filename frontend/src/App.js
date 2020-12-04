@@ -21,9 +21,6 @@ var unsubscribe = store.subscribe(() => {
 
 APICalls.parts.list((data) => {
   store.dispatch(setPartsList(data));
-  store.dispatch(addToCart(data[0], 1))
-  store.dispatch(addToCart(data[2], 3))
-  store.dispatch(addToCart(data[3], 5))
 });
 
 APICalls.admin.getRules((data)=>{

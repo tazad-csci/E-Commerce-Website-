@@ -29,6 +29,9 @@ class InventoryPage extends React.Component {
             <div className="inventory-list">
                 <FilterList name="Recieving" />
                 <span className="searchBar">
+
+                </span>
+                <table className="parts-Table">
                     <input type="text"
                         placeholder="Find Part..."
                         name="recieve"
@@ -39,9 +42,6 @@ class InventoryPage extends React.Component {
                             })
                         }}
                     />
-
-                </span>
-                <table className="parts-Table">
                     <tr>
                         <th>
                             Name
@@ -54,7 +54,7 @@ class InventoryPage extends React.Component {
                         </th>
                     </tr>
                     {this.state.data.filter(part=>{
-                        if(JSON.stringify(part).toString().includes(this.state.search.toLowerCase())){
+                        if(JSON.stringify(part).toString().toLocaleLowerCase().includes(this.state.search.toLowerCase())){
                             return true;
                         }
                         return false;
