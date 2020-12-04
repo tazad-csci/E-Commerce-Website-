@@ -63,13 +63,6 @@ class OrderList extends React.Component {
             <div className="order-list-wrapper">
 
                 <h1>Out Going Orders</h1>
-                <input
-                    type="text"
-                    value={this.state.search}
-                    placeholder="search for an order"
-                    name="search"
-                    onChange={this.handleChange}
-                />
 
                 <table>
                     <tr>
